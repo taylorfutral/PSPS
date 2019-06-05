@@ -7,6 +7,13 @@ import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 
+/*
+Consumer will ask user for a topic to get subscriptions from.
+If "--list" keyword used, a list of available topics will display
+and then ask for a topic name again.
+Otherwise, the consumer subscribes to the topic name given.
+*/
+
 public class GeneralConsumer {
     private static final String BOOTSTRAP_SERVERS = 
     		"localhost:9092";
