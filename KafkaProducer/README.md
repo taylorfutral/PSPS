@@ -2,7 +2,7 @@
 
 - Start the ZooKeeper server:
 
-	$ cd kafka
+	$ cd kafka \n
 	$ bin/zookeeper-server-start.sh config/zookeeper.properties
 
 - Start the Kafka server:
