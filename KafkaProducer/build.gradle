@@ -39,4 +39,5 @@ dependencies {
 }
 
 // Define the main class for the application
-mainClassName = 'CatProducer.CatProducer'
+//mainClassName = 'KafkaProducer.CatProducer.KafkaProducer.CatProducer'
+mainClassName = 'KafkaProducer.CatProducer.CatProducer'
