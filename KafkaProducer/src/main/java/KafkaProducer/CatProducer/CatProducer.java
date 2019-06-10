@@ -6,11 +6,15 @@ import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.StringSerializer;
 
+import java.io.ByteArrayOutputStream;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import javax.imageio.ImageIO;
+
 public class CatProducer {
 
-    public String getGreeting() {
-        return "Hello world.";
-    }
+    public static final String KAFKA_SERVER_URL = "169.234.24.114";
+    public static final int KAFKA_SERVER_PORT = 9092;
 
     public static void main(String[] args) {
         // Check arguments length value
@@ -26,7 +30,7 @@ public class CatProducer {
         Properties props = new Properties();
 
         //Assign localhost id
-        props.put("bootstrap.servers", "169.234.24.114:9092");
+        props.put("bootstrap.servers", KAFKA_SERVER_URL+":"+KAFKA_SERVER_PORT);
 
         //Set acknowledgements for producer requests.
         props.put("acks", "all");
@@ -46,14 +50,25 @@ public class CatProducer {
         props.put("key.serializer",
                 "org.apache.kafka.common.serialization.StringSerializer");
 
-        props.put("value.serializer",
-                "org.apache.kafka.common.serialization.StringSerializer");
+        // props.put("value.serializer",
+        //         "org.apache.kafka.common.serialization.StringSerializer");
+        // Producer<String, String> producer = new KafkaProducer<String, String>(props);
 
-        Producer<String, String> producer = new KafkaProducer<String, String>(props);
+        props.put("value.serializer", 
+                "org.apache.kafka.common.serialization.ByteArraySerializer");
+        Producer<String, byte[]> producer = new KafkaProducer<String, byte[]>(props);
 
-        for(int i = 20; i < 30; i++)
-            producer.send(new ProducerRecord<String, String>(topicName,
-                    Integer.toString(i), "cats are awesome! Message #" + i));
+        for(int i = 0; i < 10; i++) {
+            BufferedImage bImage = ImageIO.read(new File("dog1.jpg"));
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            ImageIO.write(bImage, "jpg", bos );
+            byte [] data = bos.toByteArray();
+
+            producer.send(new ProducerRecord<String, byte[]>(topicName,
+                    Integer.toString(i), data));
+            // producer.send(new ProducerRecord<String, String>(topicName,
+                    // Integer.toString(i), "cats are awesome! Message #" + i));
+        }
 
         System.out.println("Message sent successfully");
         producer.close();
