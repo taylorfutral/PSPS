@@ -1,5 +1,4 @@
-package KafkaProducer.CatProducer;
-
+import java.io.IOException;
 import java.util.Properties;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
@@ -11,7 +10,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
 
-public class CatProducer {
+public class GeneralProducer {
 
     public static final String KAFKA_SERVER_URL = "169.234.24.114";
     public static final int KAFKA_SERVER_PORT = 9092;
@@ -60,15 +59,21 @@ public class CatProducer {
         Producer<String, byte[]> producer = new KafkaProducer<String, byte[]>(props);
 
         for(int i = 0; i < 10; i++) {
-            String filename = "dog1.jpg"
-            BufferedImage bImage = ImageIO.read(new File(filename));
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            ImageIO.write(bImage, "jpg", bos );
-            byte [] data = bos.toByteArray();
+            String filename = "dog1.jpg";
+            BufferedImage bImage = null;
+            try {
+                bImage = ImageIO.read(new File(filename));
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                ImageIO.write(bImage, "jpg", bos );
+                byte [] data = bos.toByteArray();
 
-            // Each record for `topicName stores key:`filename with value=image_data
-            producer.send(new ProducerRecord<String, byte[]>(topicName,
-                    filename, data));
+                // Each record for `topicName stores key:`filename with value=image_data
+                producer.send(new ProducerRecord<String, byte[]>(topicName,
+                        filename, data));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
 
             // OLD: send string message
             // producer.send(new ProducerRecord<String, String>(topicName,
