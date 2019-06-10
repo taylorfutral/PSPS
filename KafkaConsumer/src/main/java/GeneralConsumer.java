@@ -34,10 +34,14 @@ public class GeneralConsumer {
       props.put("session.timeout.ms", "30000");
       props.put("key.deserializer", 
          "org.apache.kafka.common.serializa-tion.StringDeserializer");
+      // props.put("value.deserializer", 
+      //    "org.apache.kafka.common.serializa-tion.StringDeserializer");
+      // KafkaConsumer<String, String> consumer = new KafkaConsumer
+      //    <String, String>(props);
+
       props.put("value.deserializer", 
-         "org.apache.kafka.common.serializa-tion.StringDeserializer");
-      KafkaConsumer<String, String> consumer = new KafkaConsumer
-         <String, String>(props);
+         "org.apache.kafka.common.serialization.ByteArraySerializer");
+      KafkaConsumer<String, byte[]> consumer = new KafkaConsumer<String, byte[]>(props);
       
       //Return list of available topics to choose from 
 	  if (topicName == "--list") {
@@ -60,13 +64,28 @@ public class GeneralConsumer {
       int i = 0;
       
       while (true) {
-         ConsumerRecords<String, String> records = consumer.poll(100);
-         for (ConsumerRecord<String, String> record : records) {
-         
-         	// print the offset,key and value for the consumer records.
-         	System.out.printf("offset = %d, key = %s, value = %s\n", 
-            		record.offset(), record.key(), record.value());
-         }
+        ConsumerRecords<String, byte[]> records = consumer.poll(100);
+        for (ConsumerRecord<String, byte[]> record : records) {
+
+          // Unpack image data
+          ByteArrayInputStream bis = new ByteArrayInputStream(record.value());
+          BufferedImage bImage2 = ImageIO.read(bis);
+          ImageIO.write(bImage2, "jpg", new File(record.key()));
+          System.out.println("image saved");
+
+          // print the offset,key and value for the consumer records.
+          // System.out.printf("offset = %d, key = %s, value = %s\n", 
+          //       record.offset(), record.key(), record.value());
+        }
+
+        // For unpacking string messages
+        // ConsumerRecords<String, String> records = consumer.poll(100);
+        // for (ConsumerRecord<String, String> record : records) {
+
+        //   // print the offset,key and value for the consumer records.
+        //   System.out.printf("offset = %d, key = %s, value = %s\n", 
+        //       record.offset(), record.key(), record.value());
+        // }
       }
    }
 }

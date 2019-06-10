@@ -50,6 +50,7 @@ public class CatProducer {
         props.put("key.serializer",
                 "org.apache.kafka.common.serialization.StringSerializer");
 
+        // OLD: send string message
         // props.put("value.serializer",
         //         "org.apache.kafka.common.serialization.StringSerializer");
         // Producer<String, String> producer = new KafkaProducer<String, String>(props);
@@ -59,13 +60,17 @@ public class CatProducer {
         Producer<String, byte[]> producer = new KafkaProducer<String, byte[]>(props);
 
         for(int i = 0; i < 10; i++) {
-            BufferedImage bImage = ImageIO.read(new File("dog1.jpg"));
+            String filename = "dog1.jpg"
+            BufferedImage bImage = ImageIO.read(new File(filename));
             ByteArrayOutputStream bos = new ByteArrayOutputStream();
             ImageIO.write(bImage, "jpg", bos );
             byte [] data = bos.toByteArray();
 
+            // Each record for `topicName stores key:`filename with value=image_data
             producer.send(new ProducerRecord<String, byte[]>(topicName,
-                    Integer.toString(i), data));
+                    filename, data));
+
+            // OLD: send string message
             // producer.send(new ProducerRecord<String, String>(topicName,
                     // Integer.toString(i), "cats are awesome! Message #" + i));
         }
