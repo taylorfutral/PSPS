@@ -1,2 +1,2 @@
 ./gradlew clean build
-java -jar build/libs/CatProducer.jar cats
+java -jar build/libs/KafkaProducer.CatProducer.jar cats

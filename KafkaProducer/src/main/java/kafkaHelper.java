@@ -36,7 +36,7 @@ public class kafkaHelper{
 		ProcessBuilder pb = new ProcessBuilder();
 
 		// Run a shell command
-		// String command = "ls ./GeneralConsumer";
+		// String command = "ls ./KafkaProducer.CatProducer.GeneralConsumer";
 		System.out.println("Running: "+command);
 
 		pb.command("bash", "-c", command);
@@ -80,7 +80,7 @@ public class kafkaHelper{
 
 	public void runCommands(ArrayList<String> commandList) {
 		for (String command : commandList) {
-			runCommand(command);
+			runCommand(command, false);
 		}
 		return;
 	}
@@ -89,6 +89,6 @@ public class kafkaHelper{
 	public static void main(String[] args) throws Exception {
 		kafkaHelper kh = new kafkaHelper();
 		ArrayList<String> commandList = kh.getCommandList();
-		kh.runCommands(commandList, false);
+		kh.runCommands(commandList);
 	}
 }

@@ -1,11 +1,11 @@
-package KafkaProducer:
+package KafkaProducer;
 
-import java.util.Properties;
-import java.util.Arrays;
-import java.util.Map;
+import java.util.*;
+
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.apache.kafka.common.PartitionInfo;
 
 /*
 Consumer will ask user for a topic to get subscriptions from.
@@ -41,17 +41,19 @@ public class GeneralConsumer {
       
       //Return list of available topics to choose from 
 	  if (topicName == "--list") {
-	     Map<String, List<PartitionInfo> topics = consumer.listTopics();
+	     Map<String, List<PartitionInfo>> topics = consumer.listTopics();
+	     Iterator it = topics.entrySet().iterator();
 	     System.out.println("Available topics:");
-	     for (Map.Entry<String, List<PartitionInfo> entry : topics) {
-	     	System.out.println("> " + entry.getKey());
+	     while (it.hasNext()) {
+             Map.Entry entry = (Map.Entry)it.next();
+             System.out.println("> " + entry.getKey());
 	     }
 	     System.out.println("\nEnter topic name");
 	     return;
 	  }
       
       //Kafka Consumer subscribes list of topics here.
-      consumer.subscribe(Arrays.asList(topicName))
+      consumer.subscribe(Arrays.asList(topicName));
       
       //print the topic name
       System.out.println("Subscribed to topic " + topicName);
