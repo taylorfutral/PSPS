@@ -10,63 +10,76 @@ import org.apache.kafka.common.PartitionInfo;
 
 import javax.imageio.ImageIO;
 
-/*
-Consumer will ask user for a topic to get subscriptions from.
-If "--list" keyword used, a list of available topics will display
-and then ask for a topic name again.
-Otherwise, the consumer subscribes to the topic name given.
-*/
+import java.util.ArrayList;
+import java.util.Set;
+
+
 
 public class GeneralConsumer {
+
     private static final String BOOTSTRAP_SERVERS = 
     		"localhost:9092";
 
-   public static void main(String[] args) throws Exception {
-      if(args.length == 0){
-         System.out.println("Enter topic name");
-         return;
-      }
-      //Kafka consumer configuration settings
-      String topicName = args[0].toString();
-      Properties props = new Properties();
-      
-      props.put("bootstrap.servers", BOOTSTRAP_SERVERS);
-      props.put("group.id", "test");
-      props.put("enable.auto.commit", "true");
-      props.put("auto.commit.interval.ms", "1000");
-      props.put("session.timeout.ms", "30000");
-      props.put("key.deserializer", 
-         "org.apache.kafka.common.serializa-tion.StringDeserializer");
-      // props.put("value.deserializer", 
-      //    "org.apache.kafka.common.serializa-tion.StringDeserializer");
-      // KafkaConsumer<String, String> consumer = new KafkaConsumer
-      //    <String, String>(props);
+    private KafkaConsumer<String, byte[]> consumer = null;
 
-      props.put("value.deserializer", 
+    public GeneralConsumer() {
+        // Kafka consumer configuration settings
+        Properties props = new Properties();
+
+        props.put("bootstrap.servers", BOOTSTRAP_SERVERS);
+        props.put("group.id", "test");
+        props.put("enable.auto.commit", "true");
+        props.put("auto.commit.interval.ms", "1000");
+        props.put("session.timeout.ms", "30000");
+        props.put("key.deserializer", 
+         "org.apache.kafka.common.serialization.StringDeserializer");
+        // props.put("value.deserializer", 
+        //    "org.apache.kafka.common.serializa-tion.StringDeserializer");
+        // KafkaConsumer<String, String> consumer = new KafkaConsumer
+        //    <String, String>(props);
+
+        props.put("value.deserializer", 
          "org.apache.kafka.common.serialization.ByteArraySerializer");
-      KafkaConsumer<String, byte[]> consumer = new KafkaConsumer<String, byte[]>(props);
-      
-      //Return list of available topics to choose from 
-	  if (topicName == "--list") {
-	     Map<String, List<PartitionInfo>> topics = consumer.listTopics();
-	     Iterator it = topics.entrySet().iterator();
-	     System.out.println("Available topics:");
-	     while (it.hasNext()) {
-             Map.Entry entry = (Map.Entry)it.next();
-             System.out.println("> " + entry.getKey());
-	     }
-	     System.out.println("\nEnter topic name");
-	     return;
-	  }
-      
-      //Kafka Consumer subscribes list of topics here.
-      consumer.subscribe(Arrays.asList(topicName));
-      
-      //print the topic name
-      System.out.println("Subscribed to topic " + topicName);
-      int i = 0;
-      
-      while (true) {
+        consumer = new KafkaConsumer<String, byte[]>(props);
+    }
+
+    // Return list of available topics to choose from
+    public String[] getTopics() {
+        ArrayList<String> listTopics = new ArrayList<String>();
+
+        Map<String, List<PartitionInfo>> topics = consumer.listTopics();
+        Set<String> topicNames = topics.keySet();
+        return topicNames.toArray();
+
+        // Prints the topics to stdout
+        // Iterator it = topics.entrySet().iterator();
+        // System.out.println("Available topics:");
+        // while (it.hasNext()) {
+        //  Map.Entry entry = (Map.Entry)it.next();
+        //  System.out.println("> " + entry.getKey());
+        // }
+    }
+
+    public void subscribeTo(String topicName) {
+        // Kafka Consumer subscribes list of topics here.
+        consumer.subscribe(Arrays.asList(topicName));
+        System.out.println("Subscribed to topic " + topicName);
+    }
+
+    public void unsubscribeTo(String topicName) {
+        Map<String, List<PartitionInfo>> topics = consumer.listTopics();
+        topics.remove(topicName);
+        if (topicName.equals("*")) {
+            // Unsubcribes to all topics
+            consumer.unsubscribe();
+        } else {
+            // Unsubcribes to the specific topic
+            consumer.subscribe(topics);
+        }
+    }
+
+    public void pullData() {
+
         ConsumerRecords<String, byte[]> records = consumer.poll(100);
         for (ConsumerRecord<String, byte[]> record : records) {
 
@@ -89,6 +102,15 @@ public class GeneralConsumer {
         //   System.out.printf("offset = %d, key = %s, value = %s\n", 
         //       record.offset(), record.key(), record.value());
         // }
-      }
+        
+    }
+
+    public static void main(String[] args) throws Exception {
+        GeneralConsumer gc = new GeneralConsumer();
+
+        String topicName = "cats";
+        gc.subscribeTo(topicName);
+        gc.pullData();
+        
    }
 }

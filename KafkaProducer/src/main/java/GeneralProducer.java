@@ -15,16 +15,11 @@ public class GeneralProducer {
     public static final String KAFKA_SERVER_URL = "169.234.24.114";
     public static final int KAFKA_SERVER_PORT = 9092;
 
-    public static void main(String[] args) {
-        // Check arguments length value
-        if(args.length == 0){
-            System.out.println("Enter topic name");
-            return;
-        }
-
-        //Assign topicName to string variable
-        String topicName = args[0].toString();
-
+    private Producer<String, byte[]> producer = null;
+    /**
+    * Creates a Producer with the following properties
+    */
+    public GeneralProducer() {
         // create instance for properties to access producer configs
         Properties props = new Properties();
 
@@ -56,8 +51,14 @@ public class GeneralProducer {
 
         props.put("value.serializer", 
                 "org.apache.kafka.common.serialization.ByteArraySerializer");
-        Producer<String, byte[]> producer = new KafkaProducer<String, byte[]>(props);
+        
+        producer = new KafkaProducer<String, byte[]>(props);
+    }
 
+    // Pushes image data from the given directory
+    public void pushData(String topicName, String path_to_dir) {
+
+        // Sends the same image 10 times
         for(int i = 0; i < 10; i++) {
             String filename = "dog1.jpg";
             BufferedImage bImage = null;
@@ -74,13 +75,28 @@ public class GeneralProducer {
                 e.printStackTrace();
             }
 
-
             // OLD: send string message
             // producer.send(new ProducerRecord<String, String>(topicName,
                     // Integer.toString(i), "cats are awesome! Message #" + i));
         }
 
-        System.out.println("Message sent successfully");
+        System.out.println("Messages sent successfully");
+    }
+
+
+    public static void main(String[] args) {
+        // Check arguments length value
+        // if(args.length == 0){
+        //     System.out.println("Enter topic name");
+        //     return;
+        // }
+        //Assign topicName to string variable
+        // String topicName = args[0].toString();
+
+        GeneralProducer gp = new GeneralProducer();
+
+        gp.pushData("cats", "./");
+
         producer.close();
     }
 }
