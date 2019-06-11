@@ -1,11 +1,14 @@
-package KafkaProducer;
-
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.util.*;
 
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.common.PartitionInfo;
+
+import javax.imageio.ImageIO;
 
 /*
 Consumer will ask user for a topic to get subscriptions from.
