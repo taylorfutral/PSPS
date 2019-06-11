@@ -76,7 +76,8 @@ public class GeneralConsumer {
             consumer.unsubscribe();
         } else {
             // Unsubcribes to the specific topic
-            consumer.subscribe(topics);
+            Set<String> listOfRemainingNames = topics.keySet();
+            consumer.subscribe(listOfRemainingNames);
         }
     }
 
