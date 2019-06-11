@@ -51,7 +51,8 @@ public class GeneralConsumer {
         Map<String, List<PartitionInfo>> topics = consumer.listTopics();
         Set<String> topicNames = topics.keySet();
 
-        return topicNames.toArray();
+        String[] topicsStringArray = new String[topicNames.size()];
+        return topicNames.toArray(topicsStringArray);
 
         // Prints the topics to stdout
         // Iterator it = topics.entrySet().iterator();
