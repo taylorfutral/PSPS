@@ -1,5 +1,6 @@
-package KafkaProducer;
-
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.util.*;
 
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -7,13 +8,11 @@ import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.common.PartitionInfo;
 
-import java.io.ByteArrayInputStream;
-import java.awt.image.BufferedImage;
-import java.io.File;
 import javax.imageio.ImageIO;
 
 import java.util.ArrayList;
 import java.util.Set;
+
 
 
 public class GeneralConsumer {

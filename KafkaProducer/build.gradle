@@ -40,4 +40,4 @@ dependencies {
 
 // Define the main class for the application
 //mainClassName = 'KafkaProducer.CatProducer.KafkaProducer.CatProducer'
-mainClassName = 'KafkaProducer.CatProducer.CatProducer'
+mainClassName = 'KafkaProducer.src.main.java.GeneralProducer.java'

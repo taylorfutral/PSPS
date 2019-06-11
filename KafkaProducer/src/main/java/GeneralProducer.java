@@ -1,5 +1,4 @@
-package KafkaProducer.GeneralProducer;
-
+import java.io.IOException;
 import java.util.Properties;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
@@ -62,14 +61,19 @@ public class GeneralProducer {
         // Sends the same image 10 times
         for(int i = 0; i < 10; i++) {
             String filename = "dog1.jpg";
-            BufferedImage bImage = ImageIO.read(new File(path_to_dir+filename));
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            ImageIO.write(bImage, "jpg", bos );
-            byte [] data = bos.toByteArray();
+            BufferedImage bImage = null;
+            try {
+                bImage = ImageIO.read(new File(filename));
+                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+                ImageIO.write(bImage, "jpg", bos );
+                byte [] data = bos.toByteArray();
 
-            // Each record for `topicName stores key:`filename with value=image_data
-            producer.send(new ProducerRecord<String, byte[]>(topicName,
-                    filename, data));
+                // Each record for `topicName stores key:`filename with value=image_data
+                producer.send(new ProducerRecord<String, byte[]>(topicName,
+                        filename, data));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
             // OLD: send string message
             // producer.send(new ProducerRecord<String, String>(topicName,
