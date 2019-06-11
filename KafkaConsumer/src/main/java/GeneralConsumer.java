@@ -21,6 +21,8 @@ public class GeneralConsumer {
     private static final String BOOTSTRAP_SERVERS = 
     		"localhost:9092";
 
+    private static final int POLL_TIME_OUT = 100;
+
     private KafkaConsumer<String, byte[]> consumer = null;
 
     public GeneralConsumer() {
@@ -84,7 +86,7 @@ public class GeneralConsumer {
 
     public void pullData() {
 
-        ConsumerRecords<String, byte[]> records = consumer.poll(100);
+        ConsumerRecords<String, byte[]> records = consumer.poll(POLL_TIME_OUT);
         for (ConsumerRecord<String, byte[]> record : records) {
 
           // Unpack image data
