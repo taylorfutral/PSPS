@@ -83,6 +83,9 @@ public class GeneralProducer {
         System.out.println("Messages sent successfully");
     }
 
+    public Producer<String, byte[]> getProducer() {
+        return producer;
+    }
 
     public static void main(String[] args) {
         // Check arguments length value
@@ -97,6 +100,6 @@ public class GeneralProducer {
 
         gp.pushData("cats", "./");
 
-        producer.close();
+        gp.getProducer().close();
     }
 }
