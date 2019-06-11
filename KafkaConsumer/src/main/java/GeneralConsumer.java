@@ -1,6 +1,7 @@
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -49,6 +50,7 @@ public class GeneralConsumer {
 
         Map<String, List<PartitionInfo>> topics = consumer.listTopics();
         Set<String> topicNames = topics.keySet();
+
         return topicNames.toArray();
 
         // Prints the topics to stdout
@@ -84,10 +86,14 @@ public class GeneralConsumer {
         for (ConsumerRecord<String, byte[]> record : records) {
 
           // Unpack image data
-          ByteArrayInputStream bis = new ByteArrayInputStream(record.value());
-          BufferedImage bImage2 = ImageIO.read(bis);
-          ImageIO.write(bImage2, "jpg", new File(record.key()));
-          System.out.println("image saved");
+            try {
+                ByteArrayInputStream bis = new ByteArrayInputStream(record.value());
+                BufferedImage bImage2 = ImageIO.read(bis);
+                ImageIO.write(bImage2, "jpg", new File(record.key()));
+                System.out.println("image saved");
+            }catch (IOException e){
+                e.printStackTrace();
+            }
 
           // print the offset,key and value for the consumer records.
           // System.out.printf("offset = %d, key = %s, value = %s\n", 
