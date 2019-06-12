@@ -3,6 +3,7 @@
 - Start the ZooKeeper server:
 
 	$ cd kafka
+	
 	$ bin/zookeeper-server-start.sh config/zookeeper.properties
 
 - Start the Kafka server:
@@ -15,13 +16,13 @@
 	
 - Run a Producer given a topic name:
 
-	$ java -jar build/libs/KafkaProducer.CatProducer.java "topic name"
+	$ java -jar build/libs/KafkaProducer "topic name"
 
 - Run a Consumer with a topic name:
 	
-	$ java -jar build/libs/KafkaProducer.CatProducer.GeneralConsumer.java "topic name"
+	$ java -jar build/libs/KafkaConsumer "topic name"
 				
 - [OPTIONAL] Ask for existing topic names:
 
-	$ java -jar build/libs/KafkaProducer.CatProducer.GeneralConsumer.java "--list"
+	$ java -jar build/libs/KafkaConsumer "--list"
 
