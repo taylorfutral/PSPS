@@ -20,7 +20,7 @@ public class GeneralProducer {
 
     private static Configs configs;
 
-    public static final String KAFKA_SERVER_URL = "0.0.0.0";
+    public static final String KAFKA_SERVER_URL = "localhost";
     public static final int KAFKA_SERVER_PORT = 9092;
 
 //    private Producer<String, byte[]> producer = null;
@@ -60,7 +60,7 @@ public class GeneralProducer {
 
 //        props.put("value.serializer",
 //                "org.apache.kafka.common.serialization.ByteArraySerializer");
-        
+
 //        producer = new KafkaProducer<String, String>(props);
 //        producer = new KafkaProducer<String, byte[]>(props);
     }

@@ -34,7 +34,8 @@ dependencies {
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
     
-    compile group: 'org.apache.kafka', name: 'kafka-clients', version: '0.10.2.0'
+    compile group: 'org.apache.kafka', name: 'kafka-clients', version: '0.10.1.1'
+
     compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.2'
     compile group: 'org.glassfish.jersey', name: 'project', version: '2.28', ext: 'pom'
     compile group: 'org.glassfish.jersey.core', name: 'jersey-server', version: '2.28'

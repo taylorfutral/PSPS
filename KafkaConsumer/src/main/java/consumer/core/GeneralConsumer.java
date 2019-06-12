@@ -6,9 +6,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
+import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
-import org.apache.kafka.clients.consumer.ConsumerRecord;
+import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.PartitionInfo;
 
 import javax.imageio.ImageIO;
@@ -32,12 +33,25 @@ public class GeneralConsumer {
         // Kafka consumer configuration settings
         Properties props = new Properties();
 
+//        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, IKafkaConstants.KAFKA_BROKERS);
+//        props.put(ConsumerConfig.GROUP_ID_CONFIG, IKafkaConstants.GROUP_ID_CONFIG);
+//        props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, LongDeserializer.class.getName());
+//        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
+        props.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, 1000);
+        props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "false");
+        props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
+//        Consumer<Long, String> consumer = new KafkaConsumer<>(props);
+//        consumer.subscribe(Collections.singletonList(IKafkaConstants.TOPIC_NAME));
+
         props.put("bootstrap.servers", BOOTSTRAP_SERVERS);
-        props.put("group.id", "test");
-        props.put("enable.auto.commit", "true");
-        props.put("auto.commit.interval.ms", "1000");
-        props.put("session.timeout.ms", "30000");
-        props.put("key.deserializer", 
+//        props.put("acks", "all");
+//        props.put("retries", 1);
+        props.put("group.id", "cats");
+//        props.put("enable.auto.commit", "true");
+//        props.put("auto.commit.interval.ms", "1000");
+//        props.put("session.timeout.ms", "30000");
+
+        props.put("key.deserializer",
          "org.apache.kafka.common.serialization.StringDeserializer");
          props.put("value.deserializer",
             "org.apache.kafka.common.serialization.StringDeserializer");
@@ -48,6 +62,7 @@ public class GeneralConsumer {
 //         "org.apache.kafka.common.serialization.ByteArrayDeserializer");
 //        consumer = new KafkaConsumer<String, byte[]>(props);
     }
+
 
     // Return list of available topics to choose from
     public String[] getTopics() {
@@ -88,7 +103,7 @@ public class GeneralConsumer {
     }
 
     public void pullData() {
-
+        System.out.println("accessed pullData");
 //        ConsumerRecords<String, byte[]> records = consumer.poll(POLL_TIME_OUT);
 //        for (ConsumerRecord<String, byte[]> record : records) {
 //
@@ -108,7 +123,19 @@ public class GeneralConsumer {
 //        }
 //qq
 //        // For unpacking string messages
-         ConsumerRecords<String, String> records = consumer.poll(100);
+         ConsumerRecords<String, String> records = consumer.poll(10000);
+         System.out.println(records.toString());
+
+//         records.forEach(record -> {
+//             System.out.println("Record Key "+ record.key());
+//             System.out.println("Record value "+ record.value());
+//             System.out.println("Record partition "+record.partition());
+//             System.out.println("Record offset "+ record.offset());
+//         });
+
+
+
+
          for (ConsumerRecord<String, String> record : records) {
 
            // print the offset,key and value for the consumer records.
