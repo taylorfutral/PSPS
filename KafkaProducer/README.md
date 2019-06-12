@@ -16,13 +16,13 @@
 	
 - Run a Producer given a topic name:
 
-	$ java -jar build/libs/KafkaProducer "topic name"
+	$ java -jar build/libs/KafkaProducer.jar "topic name"
 
 - Run a Consumer with a topic name:
 	
-	$ java -jar build/libs/KafkaConsumer "topic name"
+	$ java -jar build/libs/KafkaConsumer.jar "topic name"
 				
 - [OPTIONAL] Ask for existing topic names:
 
-	$ java -jar build/libs/KafkaConsumer "--list"
+	$ java -jar build/libs/KafkaConsumerl.jar "--list"
 
