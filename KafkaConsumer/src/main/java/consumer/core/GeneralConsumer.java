@@ -24,10 +24,10 @@ public class GeneralConsumer {
     private static final String BOOTSTRAP_SERVERS = 
     		"localhost:9092";
 
-    private static final int POLL_TIME_OUT = 100;
+    private static final int POLL_TIME_OUT = 10000;
 
-//    private KafkaConsumer<String, byte[]> consumer = null;
-    private KafkaConsumer<String, String> consumer = null;
+    private KafkaConsumer<String, byte[]> consumer = null;
+//    private KafkaConsumer<String, String> consumer = null;
 
     public GeneralConsumer() {
         // Kafka consumer configuration settings
@@ -46,21 +46,21 @@ public class GeneralConsumer {
         props.put("bootstrap.servers", BOOTSTRAP_SERVERS);
 //        props.put("acks", "all");
 //        props.put("retries", 1);
-        props.put("group.id", "cats");
+        props.put("group.id", "dd");
 //        props.put("enable.auto.commit", "true");
 //        props.put("auto.commit.interval.ms", "1000");
 //        props.put("session.timeout.ms", "30000");
 
         props.put("key.deserializer",
          "org.apache.kafka.common.serialization.StringDeserializer");
-         props.put("value.deserializer",
-            "org.apache.kafka.common.serialization.StringDeserializer");
-         consumer = new KafkaConsumer
-            <String, String>(props);
+//         props.put("value.deserializer",
+//            "org.apache.kafka.common.serialization.StringDeserializer");
+//         consumer = new KafkaConsumer
+//            <String, String>(props);
 
-//        props.put("value.deserializer",
-//         "org.apache.kafka.common.serialization.ByteArrayDeserializer");
-//        consumer = new KafkaConsumer<String, byte[]>(props);
+        props.put("value.deserializer",
+         "org.apache.kafka.common.serialization.ByteArrayDeserializer");
+        consumer = new KafkaConsumer<String, byte[]>(props);
     }
 
 
@@ -104,7 +104,8 @@ public class GeneralConsumer {
 
     public void pullData() {
         System.out.println("accessed pullData");
-//        ConsumerRecords<String, byte[]> records = consumer.poll(POLL_TIME_OUT);
+        ConsumerRecords<String, byte[]> records = consumer.poll(POLL_TIME_OUT);
+        System.out.println(records.toString());
 //        for (ConsumerRecord<String, byte[]> record : records) {
 //
 //          // Unpack image data
@@ -121,27 +122,37 @@ public class GeneralConsumer {
 //          // System.out.printf("offset = %d, key = %s, value = %s\n",
 //          //       record.offset(), record.key(), record.value());
 //        }
-//qq
-//        // For unpacking string messages
-         ConsumerRecords<String, String> records = consumer.poll(10000);
-         System.out.println(records.toString());
 
-//         records.forEach(record -> {
-//             System.out.println("Record Key "+ record.key());
-//             System.out.println("Record value "+ record.value());
-//             System.out.println("Record partition "+record.partition());
-//             System.out.println("Record offset "+ record.offset());
-//         });
-
-
-
-
-         for (ConsumerRecord<String, String> record : records) {
-
-           // print the offset,key and value for the consumer records.
-           System.out.printf("offset = %d, key = %s, value = %s\n",
-               record.offset(), record.key(), record.value());
-         }
+////        // For unpacking string messages
+//         ConsumerRecords<String, String> records = consumer.poll(10000);
+//         System.out.println(records.toString());
+//
+         records.forEach(record -> {
+             System.out.println("Record Key "+ record.key());
+             System.out.print("Record value: ");
+//             for(int i = 0; i < 10; i ++) {
+//                 System.out.print(record.value()[i]);
+//             }
+//             System.out.print("\n");
+             try {
+                ByteArrayInputStream bis = new ByteArrayInputStream(record.value());
+                BufferedImage bImage2 = ImageIO.read(bis);
+                ImageIO.write(bImage2, "jpg", new File(record.key()));
+                System.out.println("image saved");
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+             System.out.println("Record partition "+record.partition());
+             System.out.println("Record offset "+ record.offset());
+         });
+//
+//
+//         for (ConsumerRecord<String, String> record : records) {
+//
+//           // print the offset,key and value for the consumer records.
+//           System.out.printf("offset = %d, key = %s, value = %s\n",
+//               record.offset(), record.key(), record.value());
+//         }
         
     }
 
