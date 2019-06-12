@@ -5,7 +5,7 @@ import java.util.Map;
 public class ConfigsModel {
     private Map<String, String> serviceConfig;
     private Map<String, String> loggerConfig;
-    private Map<String, String> consumerConfig;
+    private Map<String, String> kafkaConfig;
 
     public ConfigsModel() { }
 
@@ -25,11 +25,11 @@ public class ConfigsModel {
         this.loggerConfig = loggerConfig;
     }
 
-    public Map<String, String> getConsumerConfig() {
-        return consumerConfig;
+    public Map<String, String> getKafkaConfig() {
+        return kafkaConfig;
     }
 
-    public void setConsumerConfig(Map<String, String> consumerConfig) {
-        this.consumerConfig = consumerConfig;
+    public void setKafkaConfig(Map<String, String> kafkaConfig) {
+        this.kafkaConfig = kafkaConfig;
     }
 }

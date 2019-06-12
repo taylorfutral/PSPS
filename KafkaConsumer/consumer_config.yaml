@@ -8,6 +8,6 @@ loggerConfig:
   outputDir: ./logs/
   outputFile: consumer.log
 
-consumerConfig:
-  bootstrapServerURL: localhost
-  bootstrapServerPort: 9082
+kafkaConfig:
+  hostName: localhost
+  port: 9092
