@@ -20,10 +20,11 @@ public class GeneralProducer {
 
     private static Configs configs;
 
-    public static final String KAFKA_SERVER_URL = "169.234.24.114";
+    public static final String KAFKA_SERVER_URL = "0.0.0.0";
     public static final int KAFKA_SERVER_PORT = 9092;
 
-    private Producer<String, byte[]> producer = null;
+//    private Producer<String, byte[]> producer = null;
+    private Producer<String, String> producer = null;
     /**
     * Creates a Producer with the following properties
     */
@@ -53,14 +54,15 @@ public class GeneralProducer {
                 "org.apache.kafka.common.serialization.StringSerializer");
 
         // OLD: send string message
-        // props.put("value.serializer",
-        //         "org.apache.kafka.common.serialization.StringSerializer");
-        // Producer<String, String> producer = new KafkaProducer<String, String>(props);
+         props.put("value.serializer",
+                 "org.apache.kafka.common.serialization.StringSerializer");
+         producer = new KafkaProducer<String, String>(props);
 
-        props.put("value.serializer", 
-                "org.apache.kafka.common.serialization.ByteArraySerializer");
+//        props.put("value.serializer",
+//                "org.apache.kafka.common.serialization.ByteArraySerializer");
         
-        producer = new KafkaProducer<String, byte[]>(props);
+//        producer = new KafkaProducer<String, String>(props);
+//        producer = new KafkaProducer<String, byte[]>(props);
     }
 
     // Pushes image data from the given directory
@@ -68,32 +70,44 @@ public class GeneralProducer {
 
         // Sends the same image 10 times
         for(int i = 0; i < 10; i++) {
-            String filename = "dog1.jpg";
-            BufferedImage bImage = null;
-            try {
-                bImage = ImageIO.read(new File(filename));
-                ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                ImageIO.write(bImage, "jpg", bos );
-                byte [] data = bos.toByteArray();
-
-                // Each record for `topicName stores key:`filename with value=image_data
-                producer.send(new ProducerRecord<String, byte[]>(topicName,
-                        filename, data));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+//            String filename = "dog1.jpg";
+//            BufferedImage bImage = null;
+//            try {
+//                bImage = ImageIO.read(new File(filename));
+//                ByteArrayOutputStream bos = new ByteArrayOutputStream();
+//                ImageIO.write(bImage, "jpg", bos );
+//                byte [] data = bos.toByteArray();
+//
+//                // Each record for `topicName stores key:`filename with value=image_data
+//                producer.send(new ProducerRecord<String, byte[]>(topicName,
+//                        filename, data));
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
 
             // OLD: send string message
-            // producer.send(new ProducerRecord<String, String>(topicName,
-                    // Integer.toString(i), "cats are awesome! Message #" + i));
+            System.out.println(topicName);
+            try {
+                producer.send(new ProducerRecord<String, String>(topicName,
+                        Integer.toString(i), "cats are awesome! Message #" + i));
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         System.out.println("Messages sent successfully");
     }
 
-    public Producer<String, byte[]> getProducer() {
+//    public Producer<String, byte[]> getProducer() {
+//        return producer;
+//    }
+
+    public Producer<String, String> getProducer() {
         return producer;
     }
+
+
 
     public static void main(String[] args) {
         // Check arguments length value
@@ -101,7 +115,7 @@ public class GeneralProducer {
         //     System.out.println("Enter topic name");
         //     return;
         // }
-        //Assign topicName to string variable
+        //Assign topicName to string variables
         // String topicName = args[0].toString();
         String topic = execArguments(args);
         if(topic == null) topic = "cats";
@@ -118,11 +132,12 @@ public class GeneralProducer {
             for (int i = 0; i < args.length; ++i) {
                 switch (args[i]) {
                     case "--config":
-                    case "-c":
+                    case "-c": {
                         // Config file specified. Load it.
                         getConfigFile(args[i + 1]);
                         ++i;
                         break;
+                    }
                     case "--topic":
                     case "-t":
                         ++i;
