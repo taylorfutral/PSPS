@@ -25,7 +25,8 @@ public class GeneralConsumer {
 
     private static final int POLL_TIME_OUT = 100;
 
-    private KafkaConsumer<String, byte[]> consumer = null;
+//    private KafkaConsumer<String, byte[]> consumer = null;
+    private KafkaConsumer<String, String> consumer = null;
 
     public GeneralConsumer() {
         // Kafka consumer configuration settings
@@ -38,14 +39,14 @@ public class GeneralConsumer {
         props.put("session.timeout.ms", "30000");
         props.put("key.deserializer", 
          "org.apache.kafka.common.serialization.StringDeserializer");
-        // props.put("value.deserializer", 
-        //    "org.apache.kafka.common.serializa-tion.StringDeserializer");
-        // KafkaConsumer<String, String> consumer = new KafkaConsumer
-        //    <String, String>(props);
+         props.put("value.deserializer",
+            "org.apache.kafka.common.serialization.StringDeserializer");
+         consumer = new KafkaConsumer
+            <String, String>(props);
 
-        props.put("value.deserializer", 
-         "org.apache.kafka.common.serialization.ByteArrayDeserializer");
-        consumer = new KafkaConsumer<String, byte[]>(props);
+//        props.put("value.deserializer",
+//         "org.apache.kafka.common.serialization.ByteArrayDeserializer");
+//        consumer = new KafkaConsumer<String, byte[]>(props);
     }
 
     // Return list of available topics to choose from
@@ -88,32 +89,32 @@ public class GeneralConsumer {
 
     public void pullData() {
 
-        ConsumerRecords<String, byte[]> records = consumer.poll(POLL_TIME_OUT);
-        for (ConsumerRecord<String, byte[]> record : records) {
+//        ConsumerRecords<String, byte[]> records = consumer.poll(POLL_TIME_OUT);
+//        for (ConsumerRecord<String, byte[]> record : records) {
+//
+//          // Unpack image data
+//            try {
+//                ByteArrayInputStream bis = new ByteArrayInputStream(record.value());
+//                BufferedImage bImage2 = ImageIO.read(bis);
+//                ImageIO.write(bImage2, "jpg", new File(record.key()));
+//                System.out.println("image saved");
+//            }catch (IOException e){
+//                e.printStackTrace();
+//            }
+//
+//          // print the offset,key and value for the consumer records.
+//          // System.out.printf("offset = %d, key = %s, value = %s\n",
+//          //       record.offset(), record.key(), record.value());
+//        }
+//qq
+//        // For unpacking string messages
+         ConsumerRecords<String, String> records = consumer.poll(100);
+         for (ConsumerRecord<String, String> record : records) {
 
-          // Unpack image data
-            try {
-                ByteArrayInputStream bis = new ByteArrayInputStream(record.value());
-                BufferedImage bImage2 = ImageIO.read(bis);
-                ImageIO.write(bImage2, "jpg", new File(record.key()));
-                System.out.println("image saved");
-            }catch (IOException e){
-                e.printStackTrace();
-            }
-
-          // print the offset,key and value for the consumer records.
-          // System.out.printf("offset = %d, key = %s, value = %s\n", 
-          //       record.offset(), record.key(), record.value());
-        }
-
-        // For unpacking string messages
-        // ConsumerRecords<String, String> records = consumer.poll(100);
-        // for (ConsumerRecord<String, String> record : records) {
-
-        //   // print the offset,key and value for the consumer records.
-        //   System.out.printf("offset = %d, key = %s, value = %s\n", 
-        //       record.offset(), record.key(), record.value());
-        // }
+           // print the offset,key and value for the consumer records.
+           System.out.printf("offset = %d, key = %s, value = %s\n",
+               record.offset(), record.key(), record.value());
+         }
         
     }
 

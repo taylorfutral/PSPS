@@ -18,8 +18,9 @@ public class ConsumerPage {
         ServiceLogger.LOGGER.info("======== Topic Endpoint Accessed (" + topic + ") ========");
         GeneralConsumer gc = new GeneralConsumer();
         gc.subscribeTo(topic);
+        gc.pullData();
 
-        return Response.status(Response.Status.OK).entity("").build();
+        return Response.status(Response.Status.OK).entity(topic).build();
     }
 
     @Path("alltopics")
