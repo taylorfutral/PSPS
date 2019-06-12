@@ -7,3 +7,7 @@ serviceConfig:
 loggerConfig:
   outputDir: ./logs/
   outputFile: consumer.log
+
+consumerConfig:
+  bootstrapServerURL: localhost
+  bootstrapServerPort: 9082

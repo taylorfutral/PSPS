@@ -36,8 +36,10 @@ dependencies {
     
     compile group: 'org.apache.kafka', name: 'kafka-clients', version: '0.10.2.0'
     compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.2'
+    compile group: 'com.fasterxml.jackson.jaxrs', name: 'jackson-jaxrs-json-provider', version: '2.9.8'
+    compile group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-yaml', version: '2.9.8'
 }
 
 // Define the main class for the application
 //mainClassName = 'KafkaProducer.CatProducer.KafkaProducer.CatProducer'
-mainClassName = 'GeneralProducer'
+mainClassName = 'producer.GeneralProducer'

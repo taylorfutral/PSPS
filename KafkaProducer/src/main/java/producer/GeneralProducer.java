@@ -1,9 +1,15 @@
+package producer;
+
 import java.io.IOException;
 import java.util.Properties;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
-import org.apache.kafka.common.serialization.StringSerializer;
+import producer.configs.Configs;
+import producer.models.ConfigsModel;
 
 import java.io.ByteArrayOutputStream;
 import java.awt.image.BufferedImage;
@@ -11,6 +17,8 @@ import java.io.File;
 import javax.imageio.ImageIO;
 
 public class GeneralProducer {
+
+    private static Configs configs;
 
     public static final String KAFKA_SERVER_URL = "169.234.24.114";
     public static final int KAFKA_SERVER_PORT = 9092;
@@ -95,11 +103,60 @@ public class GeneralProducer {
         // }
         //Assign topicName to string variable
         // String topicName = args[0].toString();
+        String topic = execArguments(args);
+        if(topic == null) topic = "cats";
 
         GeneralProducer gp = new GeneralProducer();
 
         gp.pushData("cats", "./");
 
         gp.getProducer().close();
+    }
+
+    private static String execArguments(String[] args) {
+        if (args.length > 0) {
+            for (int i = 0; i < args.length; ++i) {
+                switch (args[i]) {
+                    case "--config":
+                    case "-c":
+                        // Config file specified. Load it.
+                        getConfigFile(args[i + 1]);
+                        ++i;
+                        break;
+                    case "--topic":
+                    case "-t":
+                        ++i;
+                        return args[i];
+                    default:
+                        System.out.println("unrecognized argument: "+args[i]);
+                }
+            }
+        } else {
+            System.out.println("no config, using default values");
+        }
+        return null;
+    }
+
+    private static void getConfigFile(String configFile) {
+        try {
+            System.err.println("Config file name: " + configFile);
+            configs = new Configs(loadConfigs(configFile));
+            System.err.println("Configuration file successfully loaded.");
+        } catch (NullPointerException e) {
+            System.out.println("Config file not found.");
+        }
+    }
+
+    private static ConfigsModel loadConfigs(String file) {
+        System.err.println("Loading configuration file...");
+        ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
+        ConfigsModel configs = null;
+
+        try {
+            configs = mapper.readValue(new File(file), ConfigsModel.class);
+        } catch (IOException e) {
+            System.out.println("Unable to load configuration file.");
+        }
+        return configs;
     }
 }

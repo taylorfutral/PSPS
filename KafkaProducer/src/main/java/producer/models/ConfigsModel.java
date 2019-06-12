@@ -1,11 +1,11 @@
-package consumer.models;
+package producer.models;
 
 import java.util.Map;
 
 public class ConfigsModel {
     private Map<String, String> serviceConfig;
     private Map<String, String> loggerConfig;
-    private Map<String, String> consumerConfig;
+    private Map<String, String> producerConfig;
 
     public ConfigsModel() { }
 
@@ -25,11 +25,11 @@ public class ConfigsModel {
         this.loggerConfig = loggerConfig;
     }
 
-    public Map<String, String> getConsumerConfig() {
-        return consumerConfig;
+    public Map<String, String> getProducerConfig() {
+        return producerConfig;
     }
 
-    public void setConsumerConfig(Map<String, String> consumerConfig) {
-        this.consumerConfig = consumerConfig;
+    public void setProducerConfig(Map<String, String> producerConfig) {
+        this.producerConfig = producerConfig;
     }
 }
