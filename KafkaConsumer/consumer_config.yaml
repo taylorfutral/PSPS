@@ -1,0 +1,13 @@
+serviceConfig:
+  scheme: http://
+  hostName: 0.0.0.0
+  port: 7777
+  path: /api/consumer
+
+loggerConfig:
+  outputDir: ./logs/
+  outputFile: consumer.log
+
+kafkaConfig:
+  hostName: localhost
+  port: 9092

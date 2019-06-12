@@ -1,0 +1,7 @@
+producerConfig:
+  kafkaServerURL: 0.0.0.0
+  kafkaServerPort: 9092
+  retries: 1
+  batchSize: 16384
+  linger: 1
+  bufferMemory: 33554432

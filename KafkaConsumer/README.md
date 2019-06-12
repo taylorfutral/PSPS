@@ -19,9 +19,9 @@
 
 - Run a Consumer with a topic name:
 	
-	$ java -jar build/libs/KafkaProducer.CatProducer.GeneralConsumer.java "topic name"
+	$ java -jar build/libs/KafkaProducer.CatProducer.consumer.core.GeneralConsumer.java "topic name"
 				
 - [OPTIONAL] Ask for existing topic names:
 
-	$ java -jar build/libs/KafkaProducer.CatProducer.GeneralConsumer.java "--list"
+	$ java -jar build/libs/KafkaProducer.CatProducer.consumer.core.GeneralConsumer.java "--list"
 

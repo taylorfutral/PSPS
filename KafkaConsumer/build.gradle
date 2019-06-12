@@ -34,10 +34,23 @@ dependencies {
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
     
-    compile group: 'org.apache.kafka', name: 'kafka-clients', version: '0.10.2.0'
+    compile group: 'org.apache.kafka', name: 'kafka-clients', version: '0.10.1.1'
+
     compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.2'
+    compile group: 'org.glassfish.jersey', name: 'project', version: '2.28', ext: 'pom'
+    compile group: 'org.glassfish.jersey.core', name: 'jersey-server', version: '2.28'
+    compile group: 'org.glassfish.jersey.core', name: 'jersey-common', version: '2.28'
+    compile group: 'org.glassfish.jersey.containers', name: 'jersey-container-grizzly2-http', version: '2.28'
+    compile group: 'org.glassfish.jersey.inject', name: 'jersey-hk2', version: '2.28'
+    compile group: 'org.glassfish.jersey.media', name: 'jersey-media-json-jackson', version: '2.28'
+    compile group: 'org.glassfish.grizzly', name: 'grizzly-http-servlet', version: '2.4.4'
+    compile group: 'org.glassfish.grizzly', name: 'grizzly-http-server', version: '2.4.4'
+    compile group: 'com.fasterxml.jackson.jaxrs', name: 'jackson-jaxrs-json-provider', version: '2.9.8'
+    compile group: 'com.fasterxml.jackson.dataformat', name: 'jackson-dataformat-yaml', version: '2.9.8'
+    compile group: 'javax.ws.rs', name: 'javax.ws.rs-api', version: '2.1.1'
+    compile group: 'commons-codec', name: 'commons-codec', version: '1.12'
+    compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.15'
 }
 
 // Define the main class for the application
-//mainClassName = 'KafkaProducer.CatProducer.KafkaProducer.CatProducer'
-mainClassName = 'GeneralConsumer'
+mainClassName = 'consumer.ConsumerService'
