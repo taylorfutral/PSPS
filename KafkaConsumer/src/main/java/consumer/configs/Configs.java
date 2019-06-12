@@ -15,6 +15,9 @@ public class Configs {
     private final String DEFAULT_OUTPUTDIR = "./logs/";
     private final String DEFAULT_OUTPUTFILE = "idm.log";
 
+    private final String DEFAULT_KAFKA_HOSTNAME = "localhost";
+    private final int DEFAULT_KAFKA_PORT = 9092;
+
     // Service configs
     private String scheme;
     private String hostName;
@@ -23,6 +26,10 @@ public class Configs {
     // Logger configs
     private String outputDir;
     private String outputFile;
+
+
+    private String kafkaHostName;
+    private int kafkaPort;
 
     public Configs(ConfigsModel cm) throws NullPointerException {
         if (cm == null) {
@@ -80,6 +87,26 @@ public class Configs {
             } else {
                 System.err.println("Logging output file: " + outputFile);
             }
+
+            //set kafka configs
+            kafkaHostName = cm.getKafkaConfig().get("hostName");
+            if (kafkaHostName == null) {
+                kafkaHostName = DEFAULT_KAFKA_HOSTNAME;
+                System.err.println("Kafka Hostname not found in configuration file. Using default.");
+            } else {
+                System.err.println("Kafka hostname: " + hostName);
+            }
+
+            kafkaPort = Integer.parseInt(cm.getKafkaConfig().get("port"));
+            if (kafkaPort == 0) {
+                kafkaPort = DEFAULT_KAFKA_PORT;
+                System.err.println("Port not found in configuration file. Using default.");
+            } else if (kafkaPort < MIN_SERVICE_PORT || kafkaPort > MAX_SERVICE_PORT) {
+                kafkaPort = DEFAULT_KAFKA_PORT;
+                System.err.println("Port is not within valid range. Using default.");
+            } else {
+                System.err.println("Port: " + kafkaPort);
+            }
         }
     }
 
@@ -90,6 +117,8 @@ public class Configs {
         ServiceLogger.LOGGER.config("Path: " + path);
         ServiceLogger.LOGGER.config("Logger output directory: " + outputDir);
         ServiceLogger.LOGGER.config("Logger output file: " + outputFile);
+        ServiceLogger.LOGGER.config("kafkaHostName: " + kafkaHostName);
+        ServiceLogger.LOGGER.config("kafkaPort: " + kafkaPort);
     }
 
 
@@ -123,5 +152,13 @@ public class Configs {
 
     public String getOutputFile() {
         return outputFile;
+    }
+
+    public String getKafkaHostName() {
+        return kafkaHostName;
+    }
+
+    public int getKafkaPort() {
+        return kafkaPort;
     }
 }

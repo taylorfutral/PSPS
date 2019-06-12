@@ -7,3 +7,7 @@ serviceConfig:
 loggerConfig:
   outputDir: ./logs/
   outputFile: consumer.log
+
+kafkaConfig:
+  hostName: localhost
+  port: 9092
