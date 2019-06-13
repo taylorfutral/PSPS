@@ -17,6 +17,7 @@ public class ConsumerPage {
     public Response getRecords(@PathParam("topic") String topic) {
         ServiceLogger.LOGGER.info("======== Topic Endpoint Accessed (" + topic + ") ========");
         GeneralConsumer gc = new GeneralConsumer();
+//        gc.getTopics();
         gc.subscribeTo(topic);
         gc.pullData();
 
