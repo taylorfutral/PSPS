@@ -35,6 +35,9 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     
     compile group: 'org.apache.kafka', name: 'kafka-clients', version: '0.10.1.1'
+//    compile group: 'org.apache.kafka', name: 'kafka_2.10', version: '0.8.0'
+    compile group: 'org.apache.zookeeper', name: 'zookeeper', version: '3.4.0'
+
 
     compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.2.2'
     compile group: 'org.glassfish.jersey', name: 'project', version: '2.28', ext: 'pom'

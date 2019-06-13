@@ -1,21 +1,21 @@
 package consumer.core;
 
+import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.clients.consumer.ConsumerRecords;
+import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.common.PartitionInfo;
+import org.apache.zookeeper.KeeperException;
+import org.apache.zookeeper.ZooKeeper;
+
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.apache.kafka.clients.consumer.KafkaConsumer;
-import org.apache.kafka.clients.consumer.ConsumerRecords;
-import org.apache.kafka.clients.consumer.ConsumerConfig;
-import org.apache.kafka.common.PartitionInfo;
-
-import javax.imageio.ImageIO;
-
-import java.util.ArrayList;
-import java.util.Set;
+//import org.apache.kafka.clients.admin.AdminClientConfig;
+//import org.apache.kafka.clients.admin.ListTopicsOptions;
 
 
 
@@ -26,6 +26,7 @@ public class GeneralConsumer {
 
     private static final int POLL_TIME_OUT = 10000;
 
+//    private AdminClient adminClient = null;
     private KafkaConsumer<String, byte[]> consumer = null;
 //    private KafkaConsumer<String, String> consumer = null;
 
@@ -42,6 +43,8 @@ public class GeneralConsumer {
         props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
 //        Consumer<Long, String> consumer = new KafkaConsumer<>(props);
 //        consumer.subscribe(Collections.singletonList(IKafkaConstants.TOPIC_NAME));
+
+//        props.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
 
         props.put("bootstrap.servers", BOOTSTRAP_SERVERS);
 //        props.put("acks", "all");
@@ -61,18 +64,26 @@ public class GeneralConsumer {
         props.put("value.deserializer",
          "org.apache.kafka.common.serialization.ByteArrayDeserializer");
         consumer = new KafkaConsumer<String, byte[]>(props);
+
+//        adminClient = AdminClient.create(props);
     }
 
 
     // Return list of available topics to choose from
     public String[] getTopics() {
-        ArrayList<String> listTopics = new ArrayList<String>();
 
-        Map<String, List<PartitionInfo>> topics = consumer.listTopics();
-        Set<String> topicNames = topics.keySet();
+        try {
+            ZooKeeper zk = new ZooKeeper("localhost:2181", 10000, null);
+            List<String> topics = zk.getChildren("/brokers/topics", false);
+//            for (String topic : topics) {
+//                System.out.println(topic);
+//            }
+            return topics.toArray(new String[0]);
 
-        String[] topicsStringArray = new String[topicNames.size()];
-        return topicNames.toArray(topicsStringArray);
+        } catch (InterruptedException | KeeperException | IOException e) {
+            e.printStackTrace();
+        }
+        return null;
 
         // Prints the topics to stdout
         // Iterator it = topics.entrySet().iterator();
