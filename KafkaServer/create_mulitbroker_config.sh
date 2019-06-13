@@ -49,6 +49,9 @@ do
 		echo "controlled.shutdown.enable=true" >> "$FILENAME"
 		echo "auto.leader.rebalance.enable=true" >> "$FILENAME"
 
+		# Add clean up
+		echo "delete.topic.enable=true" >> "$FILENAME"
+
 		echo "File created."
 	fi
 done
