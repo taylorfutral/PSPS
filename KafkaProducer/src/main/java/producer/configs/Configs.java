@@ -35,7 +35,7 @@ public class Configs {
         } else {
             // Set producer configs
 
-            kafkaServerURL = cm.getServiceConfig().get("kafkaServerURL");
+            kafkaServerURL = cm.getProducerConfig().get("kafkaServerURL");
             if (kafkaServerURL == null) {
                 kafkaServerURL = DEFAULT_KAFKA_SERVER_HOSTNAME;
                 System.err.println("kafkaServerURL not found in configuration file. Using default.");
@@ -43,7 +43,7 @@ public class Configs {
                 System.err.println("kafkaServerURL: " + kafkaServerURL);
             }
 
-            kafkaServerPort = Integer.parseInt(cm.getServiceConfig().get("kafkaServerPort"));
+            kafkaServerPort = Integer.parseInt(cm.getProducerConfig().get("kafkaServerPort"));
             if (kafkaServerPort == 0) {
                 kafkaServerPort = DEFAULT_KAFKA_SERVER_PORT;
                 System.err.println("kafkaServerPort not found in configuration file. Using default.");
@@ -54,7 +54,7 @@ public class Configs {
                 System.err.println("kafkaServerPort: " + kafkaServerPort);
             }
 
-            retries = Integer.parseInt(cm.getServiceConfig().get("retries"));
+            retries = Integer.parseInt(cm.getProducerConfig().get("retries"));
             if (retries == 0) {
                 retries = DEFAULT_RETRIES;
                 System.err.println("retries not found in configuration file. Using default.");
@@ -62,7 +62,7 @@ public class Configs {
                 System.err.println("retries: " + retries);
             }
 
-            batchSize = Integer.parseInt(cm.getServiceConfig().get("batchSize"));
+            batchSize = Integer.parseInt(cm.getProducerConfig().get("batchSize"));
             if (batchSize == 0) {
                 batchSize = DEFAULT_BATCH_SIZE;
                 System.err.println("batchSize not found in configuration file. Using default.");
@@ -70,7 +70,7 @@ public class Configs {
                 System.err.println("batchSize: " + batchSize);
             }
 
-            linger = Integer.parseInt(cm.getServiceConfig().get("linger"));
+            linger = Integer.parseInt(cm.getProducerConfig().get("linger"));
             if (linger == 0) {
                 linger = DEFAULT_LINGER;
                 System.err.println("linger not found in configuration file. Using default.");
@@ -78,7 +78,7 @@ public class Configs {
                 System.err.println("linger: " + linger);
             }
 
-            bufferMemory = Integer.parseInt(cm.getServiceConfig().get("bufferMemory"));
+            bufferMemory = Integer.parseInt(cm.getProducerConfig().get("bufferMemory"));
             if (bufferMemory == 0) {
                 bufferMemory = DEFAULT_BUFFER_MEMORY;
                 System.err.println("bufferMemory not found in configuration file. Using default.");
@@ -87,7 +87,7 @@ public class Configs {
             }
 
             // Set logger configs
-            outputDir = cm.getLoggerConfig().get("outputDir");
+            outputDir = cm.getProducerConfig().get("outputDir");
             if (outputDir == null) {
                 outputDir = DEFAULT_OUTPUTDIR;
                 System.err.println("Logging output directory not found in configuration file. Using default.");
@@ -95,7 +95,7 @@ public class Configs {
                 System.err.println("Logging output directory: " + outputDir);
             }
 
-            outputFile = cm.getLoggerConfig().get("outputFile");
+            outputFile = cm.getProducerConfig().get("outputFile");
             if (outputFile == null) {
                 outputFile = DEFAULT_OUTPUTFILE;
                 System.err.println("Logging output file not found in configuration file. Using default.");

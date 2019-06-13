@@ -39,6 +39,7 @@ public class GeneralProducer {
         props.put("acks", "all");
 
         //If the request fails, the producer can automatically retry,
+        System.out.println("retries: "+configs.getRetries());
         props.put("retries", 1);
 
         //Specify buffer size in config
@@ -117,10 +118,13 @@ public class GeneralProducer {
         // String topicName = args[0].toString();
         String topic = execArguments(args);
         if(topic == null) topic = "dogs";
+        System.out.println("topic: "+topic);
+
+        configs.currentConfigs();
 
         GeneralProducer gp = new GeneralProducer();
 
-        gp.pushData("dogs", "./");
+        gp.pushData(topic, "./");
 
         gp.getProducer().close();
     }
@@ -152,19 +156,19 @@ public class GeneralProducer {
 
     private static void getConfigFile(String configFile) {
         try {
-            System.err.println("Config file name: " + configFile);
+            System.out.println("Config file name: " + configFile);
             configs = new Configs(loadConfigs(configFile));
-            System.err.println("Configuration file successfully loaded.");
+            System.out.println("Configuration file successfully loaded.");
         } catch (NullPointerException e) {
             System.out.println("Config file not found.");
         }
     }
 
     private static ConfigsModel loadConfigs(String file) {
-        System.err.println("Loading configuration file...");
+        System.out.println("Loading configuration file...");
         ObjectMapper mapper = new ObjectMapper(new YAMLFactory());
         ConfigsModel configs = null;
-
+        System.out.println("Reading config values");
         try {
             configs = mapper.readValue(new File(file), ConfigsModel.class);
         } catch (IOException e) {
