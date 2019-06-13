@@ -22,7 +22,7 @@ import java.util.Set;
 public class GeneralConsumer {
 
     private static final String BOOTSTRAP_SERVERS = 
-    		"localhost:9092";
+    		"169.234.52.77:9092";
 
     private static final int POLL_TIME_OUT = 10000;
 
@@ -106,34 +106,10 @@ public class GeneralConsumer {
         System.out.println("accessed pullData");
         ConsumerRecords<String, byte[]> records = consumer.poll(POLL_TIME_OUT);
         System.out.println(records.toString());
-//        for (ConsumerRecord<String, byte[]> record : records) {
-//
-//          // Unpack image data
-//            try {
-//                ByteArrayInputStream bis = new ByteArrayInputStream(record.value());
-//                BufferedImage bImage2 = ImageIO.read(bis);
-//                ImageIO.write(bImage2, "jpg", new File(record.key()));
-//                System.out.println("image saved");
-//            }catch (IOException e){
-//                e.printStackTrace();
-//            }
-//
-//          // print the offset,key and value for the consumer records.
-//          // System.out.printf("offset = %d, key = %s, value = %s\n",
-//          //       record.offset(), record.key(), record.value());
-//        }
 
-////        // For unpacking string messages
-//         ConsumerRecords<String, String> records = consumer.poll(10000);
-//         System.out.println(records.toString());
-//
          records.forEach(record -> {
              System.out.println("Record Key "+ record.key());
              System.out.print("Record value: ");
-//             for(int i = 0; i < 10; i ++) {
-//                 System.out.print(record.value()[i]);
-//             }
-//             System.out.print("\n");
              try {
                 ByteArrayInputStream bis = new ByteArrayInputStream(record.value());
                 BufferedImage bImage2 = ImageIO.read(bis);
@@ -145,23 +121,28 @@ public class GeneralConsumer {
              System.out.println("Record partition "+record.partition());
              System.out.println("Record offset "+ record.offset());
          });
-//
-//
-//         for (ConsumerRecord<String, String> record : records) {
-//
-//           // print the offset,key and value for the consumer records.
-//           System.out.printf("offset = %d, key = %s, value = %s\n",
-//               record.offset(), record.key(), record.value());
-//         }
         
     }
 
-//    public static void main(String[] args) throws Exception {
-//        GeneralConsumer gc = new GeneralConsumer();
-//
-//        String topicName = "cats";
-//        gc.subscribeTo(topicName);
-//        gc.pullData();
-//
-//   }
+    public byte[] pullImage() {
+        System.out.println("accessed pullData");
+        ConsumerRecords<String, byte[]> records = consumer.poll(POLL_TIME_OUT);
+        System.out.println(records.toString());
+
+        byte[] returnImage = null;
+//        records.forEach(record -> {
+//            System.out.println("Record Key "+ record.key());
+//            System.out.println("Record partition "+record.partition());
+//            System.out.println("Record offset "+ record.offset());
+//            returnImage = record.value();
+//        });
+
+        for(ConsumerRecord<String, byte[]> record: records) {
+            System.out.println("Record Key "+ record.key());
+            System.out.println("Record partition "+record.partition());
+            System.out.println("Record offset "+ record.offset());
+            returnImage = record.value();
+        }
+        return returnImage;
+    }
 }
