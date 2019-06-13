@@ -40,16 +40,16 @@ public class GeneralProducer {
 
         //If the request fails, the producer can automatically retry,
         System.out.println("retries: "+configs.getRetries());
-        props.put("retries", 1);
+        props.put("retries", configs.getRetries());
 
         //Specify buffer size in config
-        props.put("batch.size", 16384);
+        props.put("batch.size", configs.getBatchSize());
 
         //Reduce the no of requests less than 0
-        props.put("linger.ms", 1);
+        props.put("linger.ms", configs.getLinger());
 
         //The buffer.memory controls the total amount of memory available to the producer for buffering.
-        props.put("buffer.memory", 33554432);
+        props.put("buffer.memory", configs.getBufferMemory());
 
         props.put("key.serializer",
                 "org.apache.kafka.common.serialization.StringSerializer");

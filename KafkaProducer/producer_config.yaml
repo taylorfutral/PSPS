@@ -1,3 +1,7 @@
+serviceConfig:
+
+loggerConfig:
+
 producerConfig:
   kafkaServerURL: 0.0.0.0
   kafkaServerPort: 9092
