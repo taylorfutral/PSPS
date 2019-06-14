@@ -1,0 +1,16 @@
+serviceConfig:
+  scheme: http://
+  hostName: 0.0.0.0
+  port: 7777
+  path: /api/app
+
+loggerConfig:
+  outputDir: ./logs/
+  outputFile: app.log
+
+kafkaConfig:
+  hostName: 169.234.34.23
+  port: 9092
+  batchSize: 16384
+  linger: 1
+  bufferMemory: 33554432
