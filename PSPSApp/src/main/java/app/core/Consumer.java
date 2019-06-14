@@ -17,10 +17,12 @@ import java.io.IOException;
 import java.util.*;
 
 public class Consumer {
-    private static final String BOOTSTRAP_SERVERS = 
-    		"169.234.52.77:9092";
+//    private static final String BOOTSTRAP_SERVERS = "169.234.52.77:9092";
+//    private static final String BOOTSTRAP_SERVERS = "169.234.6.225";
+    private static final String BOOTSTRAP_SERVERS = "169.234.16.58";
+//    private static final String BOOTSTRAP_SERVERS = "169.234.34.23";
 
-    private static final int POLL_TIME_OUT = 5000;
+    private static final int POLL_TIME_OUT = 2000;
 
     private static KafkaConsumer<String, byte[]> consumer = getConsumer();
 
@@ -28,8 +30,8 @@ public class Consumer {
         Properties props = new Properties();
         props.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, 1);
         props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "false");
-        props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "latest");
-        props.put("bootstrap.servers", PSPSAppService.getConfigs().getKafkaURL());
+        props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
+        props.put("bootstrap.servers", BOOTSTRAP_SERVERS + ":9092");
         props.put("group.id", "dd");
         props.put("key.deserializer",
                 "org.apache.kafka.common.serialization.StringDeserializer");
@@ -77,7 +79,7 @@ public class Consumer {
     public static String[] getTopics() {
 
         try {
-            ZooKeeper zk = new ZooKeeper("169.234.34.23:2181", 10000, null);
+            ZooKeeper zk = new ZooKeeper(BOOTSTRAP_SERVERS + ":" +2181, 10000, null);
             List<String> topics = zk.getChildren("/brokers/topics", false);
             for (String topic : topics) {
                 System.out.println(topic);
@@ -121,36 +123,17 @@ public class Consumer {
         }
     }
 
-    public static void pullData() {
-        System.out.println("accessed pullData");
-        ConsumerRecords<String, byte[]> records = consumer.poll(POLL_TIME_OUT);
-        System.out.println(records.toString());
-
-         records.forEach(record -> {
-             System.out.println("Record Key "+ record.key());
-             System.out.print("Record value: ");
-             try {
-                ByteArrayInputStream bis = new ByteArrayInputStream(record.value());
-                BufferedImage bImage2 = ImageIO.read(bis);
-                ImageIO.write(bImage2, "jpg", new File(record.key()));
-                System.out.println("image saved");
-            }catch (IOException e){
-                e.printStackTrace();
-            }
-             System.out.println("Record partition "+record.partition());
-             System.out.println("Record offset "+ record.offset());
-         });
-        
-    }
 
     public static byte[] pullImage() {
-        //unsubscribeTo("*");
-
         System.out.println("accessed pullData");
         ConsumerRecords<String, byte[]> records = consumer.poll(POLL_TIME_OUT);
         System.out.println(records.toString());
 
         byte[] returnImage = null;
+        if(records.isEmpty()) {
+            return null;
+        }
+
 
         for(ConsumerRecord<String, byte[]> record: records) {
             System.out.println("Record Key "+ record.key());

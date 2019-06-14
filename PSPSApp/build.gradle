@@ -46,6 +46,7 @@ dependencies {
     compile group: 'org.glassfish.jersey.containers', name: 'jersey-container-grizzly2-http', version: '2.28'
     compile group: 'org.glassfish.jersey.inject', name: 'jersey-hk2', version: '2.28'
     compile group: 'org.glassfish.jersey.media', name: 'jersey-media-json-jackson', version: '2.28'
+    compile group: 'org.glassfish.jersey.media', name: 'jersey-media-multipart', version: '2.28'
     compile group: 'org.glassfish.grizzly', name: 'grizzly-http-servlet', version: '2.4.4'
     compile group: 'org.glassfish.grizzly', name: 'grizzly-http-server', version: '2.4.4'
     compile group: 'com.fasterxml.jackson.jaxrs', name: 'jackson-jaxrs-json-provider', version: '2.9.8'

@@ -26,7 +26,6 @@ function changeSelectDOM(res, statusText, xhr) {
 makeAjaxRequest("GET", "http://0.0.0.0:7777/api/app/topics/all", null, null, changeSelectDOM, null )
 
 
-
 function makeAjaxRequest(type, url, data, headers, func200, badFunc) {
     $.ajax({
         method: type,

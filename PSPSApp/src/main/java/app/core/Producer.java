@@ -4,13 +4,14 @@ import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.util.Properties;
 
 public class Producer {
-    public static final String KAFKA_SERVER_URL = "localhost";
+//    public static final String KAFKA_SERVER_URL = "169.234.34.23";
+//    public static final String KAFKA_SERVER_URL = "169.234.6.225";
+    private static final String BOOTSTRAP_SERVERS = "169.234.16.58";
+
     public static final int KAFKA_SERVER_PORT = 9092;
 
     private static KafkaProducer<String, byte[]> producer = getKafkaProducer();
@@ -21,7 +22,7 @@ public class Producer {
 
     private static KafkaProducer<String, byte[]> getKafkaProducer() {
         Properties props = new Properties();
-        props.put("bootstrap.servers", KAFKA_SERVER_URL+":"+KAFKA_SERVER_PORT);
+        props.put("bootstrap.servers", BOOTSTRAP_SERVERS+":"+KAFKA_SERVER_PORT);
         props.put("acks", "all");
         props.put("retries", 1);
         props.put("batch.size", 16384);
@@ -71,25 +72,24 @@ public class Producer {
 //        producer = new KafkaProducer<String, byte[]>(props);
 //    }
 
-    public void pushData(String topicName, byte[] data) {
-        boolean DISK_UPLOAD = true;
-        for(int i = 0; i < 10; i++) {
-            String filename = "dog1.jpg";
-            BufferedImage bImage = null;
-            try {
-                if(DISK_UPLOAD) {
-                    bImage = ImageIO.read(new File(filename));
-                    ByteArrayOutputStream bos = new ByteArrayOutputStream();
-                    ImageIO.write(bImage, "jpg", bos);
-                    data = bos.toByteArray();
-                    producer.send(new ProducerRecord<String, byte[]>(topicName, i + filename, data));
+    public static void pushData(String[] topics, byte[] data) {
+        boolean DISK_UPLOAD = false;
+        BufferedImage bImage = null;
+        try {
+            if(DISK_UPLOAD) {
+                for(String topic: topics) {
+                    try (OutputStream stream = new FileOutputStream("/home/amcheng/Workspace/cs237/PSPS/PSPSApp/" + topic + ".jpg")) {
+                        stream.write(data);
+                    }
                 }
-                else {
-                    producer.send(new ProducerRecord<String, byte[]>(topicName, i+filename, data));
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
             }
+            else {
+                for(String topic: topics) {
+                    producer.send(new ProducerRecord<String, byte[]>(topic, System.currentTimeMillis() + "", data));
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
         System.out.println("Messages sent successfully");

@@ -22,6 +22,7 @@ public class TopicsPage {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response allTopics() {
+        ServiceLogger.LOGGER.info("");
         String[] topics = Consumer.getTopics();
         if(topics == null) {
             return Response.status(Response.Status.NO_CONTENT).build();
