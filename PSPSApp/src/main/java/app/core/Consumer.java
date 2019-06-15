@@ -1,6 +1,5 @@
 package app.core;
 
-import app.PSPSAppService;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
@@ -9,18 +8,11 @@ import org.apache.kafka.common.PartitionInfo;
 import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.ZooKeeper;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
 public class Consumer {
-//    private static final String BOOTSTRAP_SERVERS = "169.234.52.77:9092";
-//    private static final String BOOTSTRAP_SERVERS = "169.234.6.225";
     private static final String BOOTSTRAP_SERVERS = "169.234.16.58";
-//    private static final String BOOTSTRAP_SERVERS = "169.234.34.23";
 
     private static final int POLL_TIME_OUT = 2000;
 
@@ -32,7 +24,8 @@ public class Consumer {
         props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "false");
         props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
         props.put("bootstrap.servers", BOOTSTRAP_SERVERS + ":9092");
-        props.put("group.id", "dd");
+        props.put("group.id", "unique_group");
+
         props.put("key.deserializer",
                 "org.apache.kafka.common.serialization.StringDeserializer");
 
@@ -43,39 +36,6 @@ public class Consumer {
         return new KafkaConsumer<String, byte[]>(props);
     }
 
-//    public Consumer() {
-//        Properties props = new Properties();
-//
-////        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, IKafkaConstants.KAFKA_BROKERS);
-////        props.put(ConsumerConfig.GROUP_ID_CONFIG, IKafkaConstants.GROUP_ID_CONFIG);
-////        props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, LongDeserializer.class.getName());
-////        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
-//        props.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, 1000);
-//        props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, "false");
-//        props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
-////        Consumer<Long, String> app = new KafkaConsumer<>(props);
-////        app.subscribe(Collections.singletonList(IKafkaConstants.TOPIC_NAME));
-//
-////        props.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
-//
-//        props.put("bootstrap.servers", BOOTSTRAP_SERVERS);
-////        props.put("acks", "all");
-////        props.put("retries", 1);
-//        props.put("group.id", "dd");
-////        props.put("enable.auto.commit", "true");
-////        props.put("auto.commit.interval.ms", "1000");
-////        props.put("session.timeout.ms", "30000");
-//
-//        props.put("key.deserializer",
-//         "org.apache.kafka.common.serialization.StringDeserializer");
-//
-//        props.put("value.deserializer",
-//         "org.apache.kafka.common.serialization.ByteArrayDeserializer");
-//        consumer = new KafkaConsumer<String, byte[]>(props);
-//    }
-
-
-    // Return list of available topics to choose from
     public static String[] getTopics() {
 
         try {
@@ -143,7 +103,6 @@ public class Consumer {
         if(records.isEmpty()) {
             return null;
         }
-
 
         for(ConsumerRecord<String, byte[]> record: records) {
             System.out.println("Record Key "+ record.key());

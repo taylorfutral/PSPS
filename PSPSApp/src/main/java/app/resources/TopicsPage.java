@@ -9,7 +9,6 @@ import app.models.TopicRequestModel;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import sun.net.www.content.text.Generic;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
