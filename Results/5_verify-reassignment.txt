@@ -1,0 +1,126 @@
+Status of partition reassignment: 
+Partitions reassignment failed due to The input string is not a valid JSON
+kafka.admin.AdminOperationException: The input string is not a valid JSON
+	at kafka.admin.ReassignPartitionsCommand$.parsePartitionReassignmentData(ReassignPartitionsCommand.scala:281)
+	at kafka.admin.ReassignPartitionsCommand$.verifyAssignment(ReassignPartitionsCommand.scala:96)
+	at kafka.admin.ReassignPartitionsCommand$.verifyAssignment(ReassignPartitionsCommand.scala:90)
+	at kafka.admin.ReassignPartitionsCommand$.main(ReassignPartitionsCommand.scala:61)
+	at kafka.admin.ReassignPartitionsCommand.main(ReassignPartitionsCommand.scala)
+
+Status of partition reassignment: 
+Partitions reassignment failed due to The input string is not a valid JSON
+kafka.admin.AdminOperationException: The input string is not a valid JSON
+	at kafka.admin.ReassignPartitionsCommand$.parsePartitionReassignmentData(ReassignPartitionsCommand.scala:281)
+	at kafka.admin.ReassignPartitionsCommand$.verifyAssignment(ReassignPartitionsCommand.scala:96)
+	at kafka.admin.ReassignPartitionsCommand$.verifyAssignment(ReassignPartitionsCommand.scala:90)
+	at kafka.admin.ReassignPartitionsCommand$.main(ReassignPartitionsCommand.scala:61)
+	at kafka.admin.ReassignPartitionsCommand.main(ReassignPartitionsCommand.scala)
+
+Status of partition reassignment: 
+Partitions reassignment failed due to The input string is not a valid JSON
+kafka.admin.AdminOperationException: The input string is not a valid JSON
+	at kafka.admin.ReassignPartitionsCommand$.parsePartitionReassignmentData(ReassignPartitionsCommand.scala:281)
+	at kafka.admin.ReassignPartitionsCommand$.verifyAssignment(ReassignPartitionsCommand.scala:96)
+	at kafka.admin.ReassignPartitionsCommand$.verifyAssignment(ReassignPartitionsCommand.scala:90)
+	at kafka.admin.ReassignPartitionsCommand$.main(ReassignPartitionsCommand.scala:61)
+	at kafka.admin.ReassignPartitionsCommand.main(ReassignPartitionsCommand.scala)
+
+Status of partition reassignment: 
+Partitions reassignment failed due to The input string is not a valid JSON
+kafka.admin.AdminOperationException: The input string is not a valid JSON
+	at kafka.admin.ReassignPartitionsCommand$.parsePartitionReassignmentData(ReassignPartitionsCommand.scala:281)
+	at kafka.admin.ReassignPartitionsCommand$.verifyAssignment(ReassignPartitionsCommand.scala:96)
+	at kafka.admin.ReassignPartitionsCommand$.verifyAssignment(ReassignPartitionsCommand.scala:90)
+	at kafka.admin.ReassignPartitionsCommand$.main(ReassignPartitionsCommand.scala:61)
+	at kafka.admin.ReassignPartitionsCommand.main(ReassignPartitionsCommand.scala)
+
+Status of partition reassignment: 
+Partitions reassignment failed due to The input string is not a valid JSON
+kafka.admin.AdminOperationException: The input string is not a valid JSON
+	at kafka.admin.ReassignPartitionsCommand$.parsePartitionReassignmentData(ReassignPartitionsCommand.scala:281)
+	at kafka.admin.ReassignPartitionsCommand$.verifyAssignment(ReassignPartitionsCommand.scala:96)
+	at kafka.admin.ReassignPartitionsCommand$.verifyAssignment(ReassignPartitionsCommand.scala:90)
+	at kafka.admin.ReassignPartitionsCommand$.main(ReassignPartitionsCommand.scala:61)
+	at kafka.admin.ReassignPartitionsCommand.main(ReassignPartitionsCommand.scala)
+
+Status of partition reassignment: 
+Partitions reassignment failed due to The input string is not a valid JSON
+kafka.admin.AdminOperationException: The input string is not a valid JSON
+	at kafka.admin.ReassignPartitionsCommand$.parsePartitionReassignmentData(ReassignPartitionsCommand.scala:281)
+	at kafka.admin.ReassignPartitionsCommand$.verifyAssignment(ReassignPartitionsCommand.scala:96)
+	at kafka.admin.ReassignPartitionsCommand$.verifyAssignment(ReassignPartitionsCommand.scala:90)
+	at kafka.admin.ReassignPartitionsCommand$.main(ReassignPartitionsCommand.scala:61)
+	at kafka.admin.ReassignPartitionsCommand.main(ReassignPartitionsCommand.scala)
+
+Status of partition reassignment: 
+Partitions reassignment failed due to The input string is not a valid JSON
+kafka.admin.AdminOperationException: The input string is not a valid JSON
+	at kafka.admin.ReassignPartitionsCommand$.parsePartitionReassignmentData(ReassignPartitionsCommand.scala:281)
+	at kafka.admin.ReassignPartitionsCommand$.verifyAssignment(ReassignPartitionsCommand.scala:96)
+	at kafka.admin.ReassignPartitionsCommand$.verifyAssignment(ReassignPartitionsCommand.scala:90)
+	at kafka.admin.ReassignPartitionsCommand$.main(ReassignPartitionsCommand.scala:61)
+	at kafka.admin.ReassignPartitionsCommand.main(ReassignPartitionsCommand.scala)
+
+Status of partition reassignment: 
+Partitions reassignment failed due to The input string is not a valid JSON
+kafka.admin.AdminOperationException: The input string is not a valid JSON
+	at kafka.admin.ReassignPartitionsCommand$.parsePartitionReassignmentData(ReassignPartitionsCommand.scala:281)
+	at kafka.admin.ReassignPartitionsCommand$.verifyAssignment(ReassignPartitionsCommand.scala:96)
+	at kafka.admin.ReassignPartitionsCommand$.verifyAssignment(ReassignPartitionsCommand.scala:90)
+	at kafka.admin.ReassignPartitionsCommand$.main(ReassignPartitionsCommand.scala:61)
+	at kafka.admin.ReassignPartitionsCommand.main(ReassignPartitionsCommand.scala)
+
+Status of partition reassignment: 
+Partitions reassignment failed due to The input string is not a valid JSON
+kafka.admin.AdminOperationException: The input string is not a valid JSON
+	at kafka.admin.ReassignPartitionsCommand$.parsePartitionReassignmentData(ReassignPartitionsCommand.scala:281)
+	at kafka.admin.ReassignPartitionsCommand$.verifyAssignment(ReassignPartitionsCommand.scala:96)
+	at kafka.admin.ReassignPartitionsCommand$.verifyAssignment(ReassignPartitionsCommand.scala:90)
+	at kafka.admin.ReassignPartitionsCommand$.main(ReassignPartitionsCommand.scala:61)
+	at kafka.admin.ReassignPartitionsCommand.main(ReassignPartitionsCommand.scala)
+
+Status of partition reassignment: 
+Partitions reassignment failed due to The input string is not a valid JSON
+kafka.admin.AdminOperationException: The input string is not a valid JSON
+	at kafka.admin.ReassignPartitionsCommand$.parsePartitionReassignmentData(ReassignPartitionsCommand.scala:281)
+	at kafka.admin.ReassignPartitionsCommand$.verifyAssignment(ReassignPartitionsCommand.scala:96)
+	at kafka.admin.ReassignPartitionsCommand$.verifyAssignment(ReassignPartitionsCommand.scala:90)
+	at kafka.admin.ReassignPartitionsCommand$.main(ReassignPartitionsCommand.scala:61)
+	at kafka.admin.ReassignPartitionsCommand.main(ReassignPartitionsCommand.scala)
+
+Status of partition reassignment: 
+Partitions reassignment failed due to The input string is not a valid JSON
+kafka.admin.AdminOperationException: The input string is not a valid JSON
+	at kafka.admin.ReassignPartitionsCommand$.parsePartitionReassignmentData(ReassignPartitionsCommand.scala:281)
+	at kafka.admin.ReassignPartitionsCommand$.verifyAssignment(ReassignPartitionsCommand.scala:96)
+	at kafka.admin.ReassignPartitionsCommand$.verifyAssignment(ReassignPartitionsCommand.scala:90)
+	at kafka.admin.ReassignPartitionsCommand$.main(ReassignPartitionsCommand.scala:61)
+	at kafka.admin.ReassignPartitionsCommand.main(ReassignPartitionsCommand.scala)
+
+Status of partition reassignment: 
+Partitions reassignment failed due to The input string is not a valid JSON
+kafka.admin.AdminOperationException: The input string is not a valid JSON
+	at kafka.admin.ReassignPartitionsCommand$.parsePartitionReassignmentData(ReassignPartitionsCommand.scala:281)
+	at kafka.admin.ReassignPartitionsCommand$.verifyAssignment(ReassignPartitionsCommand.scala:96)
+	at kafka.admin.ReassignPartitionsCommand$.verifyAssignment(ReassignPartitionsCommand.scala:90)
+	at kafka.admin.ReassignPartitionsCommand$.main(ReassignPartitionsCommand.scala:61)
+	at kafka.admin.ReassignPartitionsCommand.main(ReassignPartitionsCommand.scala)
+
+Status of partition reassignment: 
+Partitions reassignment failed due to The input string is not a valid JSON
+kafka.admin.AdminOperationException: The input string is not a valid JSON
+	at kafka.admin.ReassignPartitionsCommand$.parsePartitionReassignmentData(ReassignPartitionsCommand.scala:281)
+	at kafka.admin.ReassignPartitionsCommand$.verifyAssignment(ReassignPartitionsCommand.scala:96)
+	at kafka.admin.ReassignPartitionsCommand$.verifyAssignment(ReassignPartitionsCommand.scala:90)
+	at kafka.admin.ReassignPartitionsCommand$.main(ReassignPartitionsCommand.scala:61)
+	at kafka.admin.ReassignPartitionsCommand.main(ReassignPartitionsCommand.scala)
+
+Status of partition reassignment: 
+Partitions reassignment failed due to The input string is not a valid JSON
+kafka.admin.AdminOperationException: The input string is not a valid JSON
+	at kafka.admin.ReassignPartitionsCommand$.parsePartitionReassignmentData(ReassignPartitionsCommand.scala:281)
+	at kafka.admin.ReassignPartitionsCommand$.verifyAssignment(ReassignPartitionsCommand.scala:96)
+	at kafka.admin.ReassignPartitionsCommand$.verifyAssignment(ReassignPartitionsCommand.scala:90)
+	at kafka.admin.ReassignPartitionsCommand$.main(ReassignPartitionsCommand.scala:61)
+	at kafka.admin.ReassignPartitionsCommand.main(ReassignPartitionsCommand.scala)
+
