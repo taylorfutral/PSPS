@@ -86,4 +86,40 @@ public class TopicsPage {
 
         return Response.status(Response.Status.OK).entity(responseModel).build();
     }
+
+    @Path("unsubscribe")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response unsubscribe(String jsonText) {
+        ServiceLogger.LOGGER.info("Received request to unsubscribe from topic: " + jsonText);
+        TopicRequestModel requestModel;
+        GenericResponseModel responseModel;
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            requestModel = mapper.readValue(jsonText, TopicRequestModel.class);
+            ServiceLogger.LOGGER.info("subscription topic: " + requestModel.getTopic());
+
+            Consumer.unsubscribeTo(requestModel.getTopic());
+
+            responseModel = new GenericResponseModel(10, "unsubscribed");
+
+        }
+        catch (IOException e) {
+            if (e instanceof JsonMappingException) {
+                ServiceLogger.LOGGER.warning("Unable to map JSON to POJO.");
+                responseModel = new GenericResponseModel(-1, "json mapping");
+            }
+            else if (e instanceof JsonParseException) {
+                ServiceLogger.LOGGER.warning("Unable to parse JSON.");
+                responseModel = new GenericResponseModel(-1, "json parsing");
+            }
+            else {
+                ServiceLogger.LOGGER.warning("IOException.");
+                responseModel = new GenericResponseModel(-1, "exception");
+            }
+        }
+
+        return Response.status(Response.Status.OK).entity(responseModel).build();
+    }
 }

@@ -1,5 +1,6 @@
 package app.core;
 
+import app.logger.ServiceLogger;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
@@ -81,15 +82,31 @@ public class Consumer {
     }
 
     public static void unsubscribeTo(String topicName) {
-        Map<String, List<PartitionInfo>> topics = consumer.listTopics();
-        topics.remove(topicName);
-        if (topicName.equals("*")) {
-            // Unsubcribes to all topics
-            consumer.unsubscribe();
-        } else {
-            // Unsubcribes to the specific topic
-            Set<String> listOfRemainingNames = topics.keySet();
-            consumer.subscribe(listOfRemainingNames);
+        Set<String> topics = consumer.subscription();
+
+        List<String> topicsList = new ArrayList<String>();
+
+        for(String topic: topics) {
+            System.out.println("Adding existing topic: " + topic);
+            topicsList.add(topic);
+        }
+
+        try {
+            topicsList.remove(topicName);
+
+            if (topicsList.isEmpty()) {
+                ServiceLogger.LOGGER.info("No more topics");
+                consumer.unsubscribe();
+            } else if (topicName.equals("*")) {
+                // Unsubcribes to all topics
+                consumer.unsubscribe();
+            } else {
+                ServiceLogger.LOGGER.info("readding topics");
+                // Unsubcribes to the specific topic
+                consumer.subscribe(topicsList);
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
         }
     }
 

@@ -47,8 +47,9 @@ function changeSelectDOM(res, statusText, xhr) {
             topicsHtml += `${topic}, `;
         }
 
-        html += `</select>`;
-        html += `<button id="subscribeButton">Subscribe!</button><br><br>`
+        html += `</select>&nbsp`;
+        html += `<button id="subscribeButton">Subscribe!</button>&nbsp`
+        html += `<button id="unsubscribeButton">Unsubscribe!</button><br><br>`
         topicsHtml = topicsHtml.substr(0, topicsHtml.length-2)
 
         topicsDOM.append(topicsHtml);
@@ -88,4 +89,13 @@ $(document).on('click', '#subscribeButton', function(e) {
         topic: $("#subscribeTopic").val(),
     });
     makeAjaxRequest("POST", "http://0.0.0.0:7777/api/app/topics/subscribe", data, null, changeSubscribeDOM, null);
+});
+
+$(document).on('click', '#unsubscribeButton', function(e) {
+    console.log("subscribing to topic: " + $("#subscribeTopic").val());
+
+    data = JSON.stringify({
+        topic: $("#subscribeTopic").val(),
+    });
+    makeAjaxRequest("POST", "http://0.0.0.0:7777/api/app/topics/unsubscribe", data, null, changeSubscribeDOM, null);
 });
