@@ -1,5 +1,6 @@
 package app;
 
+import app.core.CORSFilter;
 import app.core.Consumer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
@@ -131,6 +132,7 @@ public class PSPSAppService {
             ResourceConfig rc = new ResourceConfig().packages("app.resources");
             ServiceLogger.LOGGER.config("Set Jersey resources.");
             rc.register(JacksonFeature.class);
+            rc.register(CORSFilter.class);
             ServiceLogger.LOGGER.config("Set Jackson as serializer.");
             ServiceLogger.LOGGER.config("Starting HTTP server...");
             HttpServer server = GrizzlyHttpServerFactory.createHttpServer(uri, rc, false);

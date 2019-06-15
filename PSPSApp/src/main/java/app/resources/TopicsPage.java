@@ -30,7 +30,6 @@ public class TopicsPage {
         AllTopicsResponseModel responseModel = new AllTopicsResponseModel(20, topics);
 
         return Response.status(Response.Status.OK).entity(responseModel)
-                .header("Access-Control-Allow-Origin", "*")
                 .build();
     }
 
@@ -47,7 +46,6 @@ public class TopicsPage {
         AllTopicsResponseModel responseModel = new AllTopicsResponseModel(20, topics);
 
         return Response.status(Response.Status.OK).entity(responseModel)
-                .header("Access-Control-Allow-Origin", "*")
                 .build();
     }
 
