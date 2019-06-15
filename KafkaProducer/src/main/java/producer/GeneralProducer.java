@@ -68,10 +68,10 @@ public class GeneralProducer {
 
         // Sends the same image 10 times
         for(int i = 0; i < 10; i++) {
-            String filename = "dog1.jpg";
+            String filename = "catfish.jpg";
             BufferedImage bImage = null;
             try {
-                bImage = ImageIO.read(new File(filename));
+                bImage = ImageIO.read(new File(path_to_dir+"/"+filename));
                 ByteArrayOutputStream bos = new ByteArrayOutputStream();
                 ImageIO.write(bImage, "jpg", bos );
                 byte [] data = bos.toByteArray();
@@ -115,19 +115,27 @@ public class GeneralProducer {
         // }
         //Assign topicName to string variables
         // String topicName = args[0].toString();
-        String topic = execArguments(args);
-        if(topic == null) topic = "dogs";
+        String[] a = execArguments(args);
+        String picDir = "./";
+        if(a == null) {
+            a[0] = "dummy";
+            a[1] = "./";
+        }
 
         GeneralProducer gp = new GeneralProducer();
 
-        gp.pushData("dogs", "./");
+        gp.pushData(a[0], a[1]);
 
         gp.getProducer().close();
     }
 
-    private static String execArguments(String[] args) {
+    private static String[] execArguments(String[] args) {
+        String[] a = new String[2];
+        a[0] = null;
+        a[1] = null;
         if (args.length > 0) {
             for (int i = 0; i < args.length; ++i) {
+
                 switch (args[i]) {
                     case "--config":
                     case "-c": {
@@ -139,7 +147,15 @@ public class GeneralProducer {
                     case "--topic":
                     case "-t":
                         ++i;
-                        return args[i];
+                        a[0] = args[i];
+                        if (a[1] != null) return a;
+                        break;
+                    case "--dir":
+                    case "-d":
+                        ++i;
+                        a[1] = args[i];
+                        if (a[0] != null) return a;
+                        break;
                     default:
                         System.out.println("unrecognized argument: "+args[i]);
                 }

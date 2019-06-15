@@ -35,7 +35,7 @@ public class GeneralProducerTest {
         Map<ConfigResource,Config> m = new HashMap<ConfigResource,Config>();
         Config c = new Config(Arrays.asList(new ConfigEntry(partition_name,partition_value)));
         ConfigResource cr = new ConfigResource(ConfigResource.Type.TOPIC, partition_name);  // not sure what second param should be
-        admin.createTopics(Arrays.asList(new NewTopic("bird", partitions, replication).configs(configs)));
+        admin.createTopics(Arrays.asList(new NewTopic("tester", partitions, replication).configs(configs)));
 
         m.put(cr, c);
         admin.alterConfigs(m);
@@ -80,7 +80,11 @@ public class GeneralProducerTest {
     }
 
     public static void main(String[] args) {
-        GeneralProducerTest.timeTest_pushData();
+//        GeneralProducerTest.timeTest_pushData();
+        System.out.println("in test...");
+        long dur = GeneralProducerTest.timeTest_createTopic();
+        System.out.println("Duration of test: "+dur);
     }
+
 
 }

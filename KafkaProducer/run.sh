@@ -1,2 +1,2 @@
 ./gradlew clean build
-java -jar build/libs/KafkaProducer.jar cats
+java -jar build/libs/KafkaProducer.jar --topic cats --dir ~/pic
