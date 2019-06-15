@@ -1,7 +1,8 @@
 
 $("#getImage").click(function() {
     let time = new Date().getTime();
-    console.log("getting new picture: " + time)
+    console.log("getting new picture: " + time);
+    $("#imgDOM").empty();
     $("#main-image").attr("src", "http://0.0.0.0:7777/api/app/image/get?timestamp="+time);
 });
 
@@ -40,7 +41,10 @@ function readFile() {
                 image: e.target.result,
             });
 
-            //makeAjaxRequest("POST", "http://0.0.0.0:7777/api/app/image/upload", data, null, null, null,)
+            makeAjaxRequest("POST", "http://0.0.0.0:7777/api/app/image/upload", data, null, null, null,);
+            setTimeout( function() {
+                makeAjaxRequest("GET", "http://0.0.0.0:7777/api/app/topics/all", null, null, changeSelectDOM, null );
+            }, 1000);
         });
 
         FR.readAsDataURL( this.files[0] );

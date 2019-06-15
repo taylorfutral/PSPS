@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <title>PSPS App</title>
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<!--    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">-->
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="js/image.js" type="text/javascript" defer="defer"></script>
@@ -17,7 +17,9 @@
     <h1>Welcome to PSPS!</h1>
     <div id="selectDOM"></div>
     <div id="subscribeDOM"></div>
-    <img id="main-image" src="" alt="No more pictures! Subscribe to other topics!">
+    <br>
+    <img id="main-image" src="" alt="No more pictures! Subscribe to other topics!" onerror="this.src='img/earth.jpg'; $(`#imgDOM`).append(`Subscribe to more topics for more pictures!`)">
+    <div id="imgDOM"></div>
     <br>
     <button id="getImage">Get Next Image</button>
 
@@ -26,9 +28,13 @@
     <h2>Contribute to the PSPS community, upload your own pictures!</h2>
     <input id="inp" type='file'>
     <br>
-    Topic 1: <input id="topic1" type="text"> <br>
-    Topic 2: <input id="topic2" type="text"> <br>
-    Topic 3: <input id="topic3" type="text"> <br>
+    <div>
+        <p>Add topic tags to your photo before chosing file.</p>
+        Topic 1: <input id="topic1" type="text"> <br>
+        Topic 2: <input id="topic2" type="text"> <br>
+        Topic 3: <input id="topic3" type="text"> <br>
+        <div id="currentTopics"></div>
+    </div>
     <p id="b64"></p>
     <img id="img" height="150">
 

@@ -81,8 +81,11 @@ public class Consumer {
         try {
             ZooKeeper zk = new ZooKeeper(BOOTSTRAP_SERVERS + ":" +2181, 10000, null);
             List<String> topics = zk.getChildren("/brokers/topics", false);
-            for (String topic : topics) {
-                System.out.println(topic);
+            for (Iterator<String> iter = topics.listIterator(); iter.hasNext(); ) {
+                String topic = iter.next();
+                if (topic.equals("__consumer_offsets")) {
+                    iter.remove();
+                }
             }
             return topics.toArray(new String[0]);
 
@@ -108,6 +111,13 @@ public class Consumer {
         catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+
+    public static String[] subscribedTo() {
+        Set<String> topics = consumer.subscription();
+
+        return topics.toArray(new String[0]);
     }
 
     public static void unsubscribeTo(String topicName) {

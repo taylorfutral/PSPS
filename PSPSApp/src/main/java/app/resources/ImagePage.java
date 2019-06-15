@@ -55,7 +55,7 @@ public class ImagePage {
             ServiceLogger.LOGGER.info("Image Data: " + requestModel.getImage());
             String imageDataBase64 = requestModel.getImage().substring(requestModel.getImage().indexOf(",")+1);
             byte[] imageData = Base64.decodeBase64(imageDataBase64);
-            Producer.pushData(new String[]{"cats"}, imageData);
+            Producer.pushData(requestModel.getTopics(), imageData);
         }
         catch (IOException e) {
             if (e instanceof JsonMappingException) {

@@ -35,6 +35,23 @@ public class TopicsPage {
                 .build();
     }
 
+    @Path("subscribedto")
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response subscribedTo() {
+        ServiceLogger.LOGGER.info("");
+        String[] topics = Consumer.subscribedTo();
+        if(topics == null) {
+            return Response.status(Response.Status.NO_CONTENT).build();
+        }
+
+        AllTopicsResponseModel responseModel = new AllTopicsResponseModel(20, topics);
+
+        return Response.status(Response.Status.OK).entity(responseModel)
+                .header("Access-Control-Allow-Origin", "*")
+                .build();
+    }
+
     @Path("subscribe")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
