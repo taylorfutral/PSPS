@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # This script checks and creates config files for broker servers.
-# Broker 1 reads from server.properties
-# Broker 2 reads from server-1.properties
-# Broker 3 reads from server-2.properties
+# Broker 0 reads from server.properties
+# Broker 1 reads from server-1.properties
+# Broker 2 reads from server-2.properties
 # ... and so on.
 
 
@@ -13,7 +13,7 @@ CONFIG_FILE_TYPE=".properties"
 
 cd "$KAFKA_HOME"
 
-for i in {1..3}
+for i in {1..20}
 do
 	FILENAME="$CONFIG_PATH_BASE-$i$CONFIG_FILE_TYPE"
 	if [ -f "$FILENAME" ]; then
@@ -41,6 +41,18 @@ do
 				ID="$(echo $line | cut -d':' -f3)"
 				newID="$(echo "$(($ID + $i - 1))")"
 				sed -i '' "s|PLAINTEXT://:$ID|PLAINTEXT://:$newID|g" "$FILENAME"
+				break
+			fi
+		done < "$FILENAME"
+
+		# Update /tmp/kafka-logs-i
+		while IFS= read -r line;
+		do
+			if [[ $line == *"/tmp/kafka-logs"* ]]; then
+				ID="$(echo $line | cut -d'=' -f2)"
+				newID="$(echo "$(($ID + $i - 1))")"
+				sleep 0.2
+				sed -i '' "s|/tmp/kafka-logs|/tmp/kafka-logs-$i|g" "$FILENAME"
 				break
 			fi
 		done < "$FILENAME"
